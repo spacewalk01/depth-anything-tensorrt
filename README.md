@@ -29,7 +29,7 @@ cv::waitKey(0);
 The inference time includes the pre-preprocessing time and the post-processing time:
 | Device          | Image Shape(WxH)     | Model Shape(WxH)  | Inference Time(ms) |
 |:---------------:|:------------:|:------------:|:------------:|
-| RTX4090        |1280x720  |518x5184       | 11     |
+| RTX4090        |1280x720  |518x518       | 11     |
 
 ## Installation 
 
