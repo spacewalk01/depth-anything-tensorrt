@@ -1,7 +1,7 @@
 
 <h1 align="center"><span>Depth-Anything TensorRT C++</span></h1>
 
-This repo provides a TensorRT C++ implementation of [Depth Anything](https://github.com/LiheYoung/Depth-Anything) model, for real-time inference on GPU.
+This repo provides a TensorRT C++ implementation of [Depth-Anything](https://github.com/LiheYoung/Depth-Anything) model, for real-time inference on GPU.
 
 <p align="center" margin: 0 auto;>
   <img src="assets/parkour_merged.gif" height="169px" width="600px" />
