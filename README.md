@@ -8,7 +8,7 @@ This repo provides a TensorRT C++ implementation of [Depth-Anything](https://git
 </p>
 
 ## Getting Started
-Load an engine or build an engine from an onnx model and perform depth estimation:
+Load or build an engine from an onnx model and perform depth estimation:
 
 ```cpp
 // 1. Build an engine from an onnx file
