@@ -11,8 +11,10 @@ This repo provides a TensorRT C++ implementation of [Depth Anything](https://git
 Load an engine or build an engine from an onnx model and perform depth estimation:
 
 ```cpp
-TRTModule model("./depth_anything_vitb14.onnx");  // 1. Build an engine from an onnx file
-//TRTModule model("./depth_anything_vitb14.engine"); // 2. Load a built engine
+// 1. Build an engine from an onnx file
+TRTModule model("./depth_anything_vitb14.onnx");  
+// 2. Load a built engine
+//TRTModule model("./depth_anything_vitb14.engine"); 
 
 Mat image = imread( "./zidan.jpg");
 
