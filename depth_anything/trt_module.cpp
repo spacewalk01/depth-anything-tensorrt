@@ -203,7 +203,7 @@ Mat TRTModule::predict(Mat &inputImage)
     // Postprocessing
     Mat outputImage(W, H, CV_32FC1, mCpuBuffers[1]);
     cv::normalize(outputImage, outputImage, 0, 255, cv::NORM_MINMAX, CV_8U);
-    upscaleMask(outputImage, inputImage.cols, inputImage.rows, W);
+    upscaleDepth(outputImage, inputImage.cols, inputImage.rows, W);
 
     auto end_time = std::chrono::high_resolution_clock::now();
 
@@ -278,7 +278,7 @@ Mat TRTModule::resizeImage(Mat& img, int inputWidth, int inputHeight)
     return out;
 }
 
-void TRTModule::upscaleMask(Mat& mask, int targetWidth, int targetHeight, int inputSize)
+void TRTModule::upscaleDepth(Mat& mask, int targetWidth, int targetHeight, int inputSize)
 {
     int limX, limY;
     if (targetWidth > targetHeight)
