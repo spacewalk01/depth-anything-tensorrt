@@ -46,6 +46,7 @@ pip install -r requirements.txt
    
 <details>
 <summary>TensorRT/CUDA installation guide</summary>
+  
 1. Download the [TensorRT](https://developer.nvidia.com/tensorrt) zip file that matches the Windows version you are using.
 2. Choose where you want to install TensorRT. The zip file will install everything into a subdirectory called `TensorRT-8.x.x.x`. This new subdirectory will be referred to as `<installpath>` in the steps below.
 3. Unzip the `TensorRT-8.x.x.x.Windows10.x86_64.cuda-x.x.zip` file to the location that you chose. Where:
@@ -57,6 +58,7 @@ pip install -r requirements.txt
 - `<installpath>/include` is present under **C/C++ > General > Additional Directories**.
 - nvinfer.lib and any other LIB files that your project requires are present under **Linker > Input > Additional Dependencies**.
 6. Download and install any recent [OpenCV](https://opencv.org/releases/) for Windows.
+  
 </details>
   
 ## Acknowledgement
