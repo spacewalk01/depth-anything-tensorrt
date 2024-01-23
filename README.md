@@ -39,7 +39,7 @@ git clone https://github.com/LiheYoung/Depth-Anything
 cd Depth-Anything
 pip install -r requirements.txt
 ```
-2. Copy `dpt.py` to `Depth-Anything/depth_anything`. Here I only removed an unfreezing operation at the end of model's forward function to avoid conflicts with tensorrt.
+2. Copy `dpt.py` to `<depth_anything_installpath>/depth_anything` folder. Here I only removed an unfreezing operation at the end of model's forward function to avoid conflicts with tensorrt.
 3. Export model to onnx using `export_to_onnx.py`
 4. Download the [TensorRT](https://developer.nvidia.com/tensorrt) zip file that matches the Windows version you are using.
 5. Choose where you want to install TensorRT. The zip file will install everything into a subdirectory called `TensorRT-8.x.x.x`. This new subdirectory will be referred to as `<installpath>` in the steps below.
