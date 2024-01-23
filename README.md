@@ -1,5 +1,5 @@
 
-<h1 align="center"><span>NanoSAM C++</span></h1>
+<h1 align="center"><span>Depth Anything TensorRT C++</span></h1>
 
 This repo provides a TensorRT C++ implementation of [Depth Anything](https://github.com/LiheYoung/Depth-Anything) model, for real-time inference on GPU.
 
