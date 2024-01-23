@@ -201,9 +201,9 @@ Mat TRTModule::predict(Mat &inputImage)
     copyOutputToHostAsync(mCudaStream);
 
     // Postprocessing
-    Mat outputImage(W, H, CV_32FC1, mCpuBuffers[1]);
-    cv::normalize(outputImage, outputImage, 0, 255, cv::NORM_MINMAX, CV_8U);
-    upscaleDepth(outputImage, inputImage.cols, inputImage.rows, W);
+    Mat depthImage(W, H, CV_32FC1, mCpuBuffers[1]);
+    cv::normalize(depthImage, depthImage, 0, 255, cv::NORM_MINMAX, CV_8U);
+    upscaleDepth(depthImage, inputImage.cols, inputImage.rows, W);
 
     auto end_time = std::chrono::high_resolution_clock::now();
 
@@ -211,7 +211,7 @@ Mat TRTModule::predict(Mat &inputImage)
     auto inference_duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
     std::cout << "Inference time: " << inference_duration.count() << " milliseconds" << std::endl;
 
-    return outputImage;
+    return depthImage;
 }
 
 //!
