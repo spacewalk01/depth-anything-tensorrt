@@ -21,10 +21,10 @@ Mat image = imread( "./zidan.jpg");
 Mat depth = model.predict(image);
 
 Mat colored_depth;
-cv::applyColorMap(depth, colored_depth, cv::COLORMAP_INFERNO);
+applyColorMap(depth, colored_depth, COLORMAP_INFERNO);
 
-cv::imshow("Depth", colored_depth);
-cv::waitKey(0);
+imshow("Depth", colored_depth);
+waitKey(0);
 ```
 
 ## Performance
