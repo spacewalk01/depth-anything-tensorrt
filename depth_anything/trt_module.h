@@ -16,7 +16,6 @@ public:
 
     Mat predict(Mat& inputImage);
 
-
     ~TRTModule();
 
 private:
