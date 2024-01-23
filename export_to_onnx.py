@@ -2,9 +2,6 @@ import cv2
 import numpy as np
 import os
 import torch
-import torch.nn.functional as F
-from torchvision.transforms import Compose
-from tqdm import tqdm
 import torch.onnx
 
 from depth_anything.dpt import DPT_DINOv2
