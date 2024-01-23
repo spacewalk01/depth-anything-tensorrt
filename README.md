@@ -33,7 +33,7 @@ The inference time includes the pre-preprocessing time and the post-processing t
 
 ## Installation 
 
-1. Install [Depth-Anything model](https://github.com/LiheYoung/Depth-Anything)
+1. Download the pretrained [model](https://huggingface.co/spaces/LiheYoung/Depth-Anything/tree/main/checkpoints) and install [Depth-Anything](https://github.com/LiheYoung/Depth-Anything):
 ```
 git clone https://github.com/LiheYoung/Depth-Anything
 cd Depth-Anything
