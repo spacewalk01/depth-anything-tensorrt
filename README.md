@@ -29,9 +29,13 @@ waitKey(0);
 
 ## Performance
 The inference time includes the pre-preprocessing time and the post-processing time:
-| Device          | Model | Model Shape(WxH) |  Image Shape(WxH)     | Inference Time(ms) |
+| Device          | Model | Model Input (WxH) |  Image Resolution (WxH)     | Inference Time(ms) |
 |:---------------:|:------------:|:------------:|:------------:|:------------:|
-| RTX4090        | Depth-Anything-ViT-Base  |518x518  |  1280x720    | 11     |
+| RTX4090        | Depth-Anything-ViT-Small  |518x518  |  1280x720    | 3     |
+| RTX4090        | Depth-Anything-ViT-Base  |518x518  |  1280x720    | 6     |
+| RTX4090        | Depth-Anything-ViT-Large  |518x518  |  1280x720    | 12     |
+
+Note that the inference uses FP16 precision (used 10 frames warmup and the last inference time is presented).
 
 ## Installation 
 
