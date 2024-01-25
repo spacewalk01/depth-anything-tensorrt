@@ -42,6 +42,8 @@ private:
 
     void setInput(Mat& image);
 
+private:
+
     vector<Dims> mInputDims;            //!< The dimensions of the input to the network.
     vector<Dims> mOutputDims;           //!< The dimensions of the output to the network.
     vector<void*> mGpuBuffers;          //!< The vector of device buffers needed for engine execution
