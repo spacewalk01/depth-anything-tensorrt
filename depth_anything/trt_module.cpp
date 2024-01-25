@@ -12,7 +12,7 @@
 
 static Logger gLogger;
 
-#define USE_FP16 true // set USE_FP16 or USE_FP32
+#define USE_FP16 true // set false for FP32 precision
 
 TRTModule::TRTModule(string modelPath)
 {
