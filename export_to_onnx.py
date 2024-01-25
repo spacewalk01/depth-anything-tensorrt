@@ -9,6 +9,7 @@ encoder = 'vitb'
 load_from = './checkpoints/depth_anything_vitb14.pth'
 image_shape = (3, 518, 518)
 
+# Initializing model
 assert encoder in ['vits', 'vitb', 'vitl']
 if encoder == 'vits':
     depth_anything = DPT_DINOv2(encoder='vits', features=64, out_channels=[48, 96, 192, 384], localhub='localhub')
@@ -20,6 +21,7 @@ else:
 total_params = sum(param.numel() for param in depth_anything.parameters())
 print('Total parameters: {:.2f}M'.format(total_params / 1e6))
 
+# Loading model weight
 depth_anything.load_state_dict(torch.load(load_from, map_location='cpu'), strict=True)
 
 depth_anything.eval()
