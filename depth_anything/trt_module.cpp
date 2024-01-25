@@ -88,22 +88,14 @@ void TRTModule::build(string onnxPath, bool isFP16)
     assert(parser != nullptr);
 
     bool parsed = parser->parseFromFile(onnxPath.c_str(), static_cast<int>(gLogger.getReportableSeverity()));
-    assert(parsed != nullptrt);
-
-    // CUDA stream used for profiling by the builder.
-    assert(mCudaStream != nullptr);
 
     IHostMemory* plan{ builder->buildSerializedNetwork(*network, *config) };
-    assert(plan != nullptr);
 
     mRuntime = createInferRuntime(gLogger);
-    assert(mRuntime != nullptr);
 
     mEngine = mRuntime->deserializeCudaEngine(plan->data(), plan->size(), nullptr);
-    assert(mEngine != nullptr);
 
     mContext = mEngine->createExecutionContext();
-    assert(mContext != nullptr);
 
     delete network;
     delete config;
@@ -125,19 +117,17 @@ void TRTModule::deserializeEngine(string enginePath)
     size = file.tellg();
     file.seekg(0, file.beg);
     char* serializedEngine = new char[size];
-    assert(serializedEngine);
+
     file.read(serializedEngine, size);
     file.close();
 
     mRuntime = createInferRuntime(gLogger);
-    assert(mRuntime);
-    mEngine = mRuntime->deserializeCudaEngine(serializedEngine, size);
-    assert(*mEngine);
-    mContext = mEngine->createExecutionContext();
-    assert(*mContext);
-    delete[] serializedEngine;
 
-    assert(mEngine->getNbBindings() != inputNames.size() + outputNames.size()); 
+    mEngine = mRuntime->deserializeCudaEngine(serializedEngine, size);
+
+    mContext = mEngine->createExecutionContext();
+
+    delete[] serializedEngine;
 
     initialize();
 }
