@@ -30,6 +30,8 @@ TRTModule::TRTModule(string modelPath)
         cout << "Deserializing Engine." << endl;
         deserializeEngine(modelPath);
     }
+    
+    initialize();
 }
 
 TRTModule::~TRTModule()
@@ -97,8 +99,6 @@ void TRTModule::build(string onnxPath, bool isFP16)
     delete config;
     delete parser;
     delete plan;
-
-    initialize();
 }
 
 void TRTModule::deserializeEngine(string enginePath)
@@ -123,8 +123,6 @@ void TRTModule::deserializeEngine(string enginePath)
     mContext = mEngine->createExecutionContext();
 
     delete[] serializedEngine;
-
-    initialize();
 }
 
 void TRTModule::initialize()
