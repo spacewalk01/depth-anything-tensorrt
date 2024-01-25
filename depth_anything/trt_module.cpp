@@ -82,7 +82,6 @@ void TRTModule::build(string onnxPath, bool isFP16)
     }
 
     nvonnxparser::IParser* parser = nvonnxparser::createParser(*network, gLogger);
-    assert(parser != nullptr);
 
     bool parsed = parser->parseFromFile(onnxPath.c_str(), static_cast<int>(gLogger.getReportableSeverity()));
 
@@ -107,7 +106,6 @@ void TRTModule::deserializeEngine(string enginePath)
     std::ifstream file(enginePath, std::ios::binary);
     if (!file.good()) {
         std::cerr << "read " << enginePath << " error!" << std::endl;
-        assert(false);
     }
     size_t size = 0;
     file.seekg(0, file.end);
