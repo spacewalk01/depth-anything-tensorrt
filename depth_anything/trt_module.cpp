@@ -70,14 +70,11 @@ bool TRTModule::saveEngine(const std::string& fileName)
 void TRTModule::build(string onnxPath, bool isFP16)
 {
     auto builder = createInferBuilder(gLogger);
-    assert(builder != nullptr);
 
     const auto explicitBatch = 1U << static_cast<uint32_t>(NetworkDefinitionCreationFlag::kEXPLICIT_BATCH);
     INetworkDefinition* network = builder->createNetworkV2(explicitBatch);
-    assert(network != nullptr);
 
     IBuilderConfig* config = builder->createBuilderConfig();
-    assert(config != nullptr);
 
     if (isFP16)
     {
