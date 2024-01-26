@@ -16,7 +16,7 @@ TRTModule model("./depth_anything_vitb14.onnx");
 
 Or you load a prebuilt engine:
 ```cpp
-//TRTModule model("./depth_anything_vitb14.engine"); 
+TRTModule model("./depth_anything_vitb14.engine"); 
 ```
 
 Perform depth estimation:
