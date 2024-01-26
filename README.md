@@ -33,7 +33,7 @@ waitKey(0);
 ```
 
 ## Performance
-The inference time includes the pre-preprocessing time and the post-processing time:
+The inference time includes the pre-preprocessing and post-processing stages:
 | Device          | Model | Model Input (WxH) |  Image Resolution (WxH)     | Inference Time(ms) |
 |:---------------:|:------------:|:------------:|:------------:|:------------:|
 | RTX4090        | `Depth-Anything-S`  |518x518  |  1280x720    | 3     |
