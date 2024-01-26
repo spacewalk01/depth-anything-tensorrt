@@ -14,7 +14,7 @@ Build an engine from an onnx model:
 TRTModule model("./depth_anything_vitb14.onnx");  
 ```
 
-Or you load a prebuilt engine:
+Or you can load a prebuilt engine:
 ```cpp
 TRTModule model("./depth_anything_vitb14.engine"); 
 ```
