@@ -53,21 +53,21 @@ pip install -r requirements.txt
 2. Copy and paste `dpt.py` to `<depth_anything_installpath>/depth_anything` folder. Here I only removed a squeeze operation at the end of model's forward function in dpt.py to avoid conflicts with tensorrt.
 3. Export the model to onnx format using `export_to_onnx.py`. 
 4. Install TensorRT using the guide below.
-<details>
-<summary>TensorRT/CUDA installation guide</summary>
+  <details>
+  <summary>TensorRT/CUDA installation guide</summary>
   
-1. Download the [TensorRT](https://developer.nvidia.com/tensorrt) zip file that matches the Windows version you are using.
-2. Choose where you want to install TensorRT. The zip file will install everything into a subdirectory called `TensorRT-8.x.x.x`. This new subdirectory will be referred to as `<installpath>` in the steps below.
-3. Unzip the `TensorRT-8.x.x.x.Windows10.x86_64.cuda-x.x.zip` file to the location that you chose. Where:
-- `8.x.x.x` is your TensorRT version
-- `cuda-x.x` is CUDA version `11.6`, `11.8` or `12.0`
-4. Add the TensorRT library files to your system `PATH`. To do so, copy the DLL files from `<installpath>/lib` to your CUDA installation directory, for example, `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\vX.Y\bin`, where `vX.Y` is your CUDA version. The CUDA installer should have already added the CUDA path to your system PATH.
-5. Ensure that the following is present in your Visual Studio Solution project properties:
-- `<installpath>/lib` has been added to your PATH variable and is present under **VC++ Directories > Executable Directories**.
-- `<installpath>/include` is present under **C/C++ > General > Additional Directories**.
-- nvinfer.lib and any other LIB files that your project requires are present under **Linker > Input > Additional Dependencies**.
-6. Download and install any recent [OpenCV](https://opencv.org/releases/) for Windows.
-</details>
+  1. Download the [TensorRT](https://developer.nvidia.com/tensorrt) zip file that matches the Windows version you are using.
+  2. Choose where you want to install TensorRT. The zip file will install everything into a subdirectory called `TensorRT-8.x.x.x`. This new subdirectory will be referred to as `<installpath>` in the steps below.
+  3. Unzip the `TensorRT-8.x.x.x.Windows10.x86_64.cuda-x.x.zip` file to the location that you chose. Where:
+    - `8.x.x.x` is your TensorRT version
+    - `cuda-x.x` is CUDA version `11.6`, `11.8` or `12.0`
+  4. Add the TensorRT library files to your system `PATH`. To do so, copy the DLL files from `<installpath>/lib` to your CUDA installation directory, for example, `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\vX.Y\bin`, where `vX.Y` is your CUDA version. The CUDA installer should have already added the CUDA path to your system PATH.
+  5. Ensure that the following is present in your Visual Studio Solution project properties:
+    - `<installpath>/lib` has been added to your PATH variable and is present under **VC++ Directories > Executable Directories**.
+    - `<installpath>/include` is present under **C/C++ > General > Additional Directories**.
+    - nvinfer.lib and any other LIB files that your project requires are present under **Linker > Input > Additional Dependencies**.
+   6. Download and install any recent [OpenCV](https://opencv.org/releases/) for Windows.
+   </details>
 5. Build the project and run depth_anything.exe
   
 ## Acknowledgement
