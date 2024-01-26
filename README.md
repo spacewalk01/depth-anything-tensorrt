@@ -4,7 +4,7 @@
 This repo provides a TensorRT C++ implementation of [Depth-Anything](https://github.com/LiheYoung/Depth-Anything) model, for real-time inference on GPU.
 
 <p align="center" margin: 0 auto;>
-  <img src="assets/parkour_merged.gif" height="169px" width="600px" />
+  <img src="assets/parkour_merged.gif" height="225px" width="800px" />
 </p>
 
 ## Getting Started
