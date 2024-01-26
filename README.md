@@ -53,8 +53,6 @@ pip install -r requirements.txt
 2. Copy and paste `dpt.py` to `<depth_anything_installpath>/depth_anything` folder. Here I only removed a squeeze operation at the end of model's forward function in dpt.py to avoid conflicts with tensorrt.
 3. Export the model to onnx format using `export_to_onnx.py`. 
 4. Install TensorRT using the guide below.
-5. Build the project and run depth_anything.exe
-   
 <details>
 <summary>TensorRT/CUDA installation guide</summary>
   
@@ -69,8 +67,8 @@ pip install -r requirements.txt
 - `<installpath>/include` is present under **C/C++ > General > Additional Directories**.
 - nvinfer.lib and any other LIB files that your project requires are present under **Linker > Input > Additional Dependencies**.
 6. Download and install any recent [OpenCV](https://opencv.org/releases/) for Windows.
-  
 </details>
+5. Build the project and run depth_anything.exe
   
 ## Acknowledgement
 This project is based on the following projects:
