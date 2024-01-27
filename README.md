@@ -24,7 +24,10 @@ Perform depth estimation:
 Mat image = imread( "./zidan.jpg");
 
 Mat depth = model.predict(image);
+```
 
+Gray scale to colormap:
+```cpp
 Mat colored_depth;
 applyColorMap(depth, colored_depth, COLORMAP_INFERNO);
 
