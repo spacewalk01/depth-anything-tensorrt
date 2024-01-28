@@ -38,7 +38,7 @@ private:
 
     void copyOutputToHostAsync(const cudaStream_t& stream = 0);
 
-    void upscaleDepth(Mat& mask, int targetWidth, int targetHeight, int size);
+    void upscaleDepth(Mat& depthImage, int targetWidth, int targetHeight, int size);
 
     void setInput(Mat& image);
 
