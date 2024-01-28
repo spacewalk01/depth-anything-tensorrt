@@ -261,7 +261,7 @@ Mat TRTModule::resizeImage(Mat& img, int inputWidth, int inputHeight)
     return out;
 }
 
-void TRTModule::upscaleDepth(Mat& mask, int targetWidth, int targetHeight, int inputSize)
+void TRTModule::upscaleDepth(Mat& depthImage, int targetWidth, int targetHeight, int inputSize)
 {
     int limX, limY;
     if (targetWidth > targetHeight)
@@ -275,7 +275,7 @@ void TRTModule::upscaleDepth(Mat& mask, int targetWidth, int targetHeight, int i
         limY = inputSize;
     }
 
-    cv::resize(mask(Rect(0, 0, limX, limY)), mask, Size(targetWidth, targetHeight));
+    cv::resize(depthImage(Rect(0, 0, limX, limY)), depthImage, Size(targetWidth, targetHeight));
 }
 
 size_t TRTModule::getSizeByDim(const Dims& dims)
