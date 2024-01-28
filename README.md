@@ -60,7 +60,7 @@ pip install -r requirements.txt
 
 
     <details>
-    <summary>TensorRT/CUDA installation guide</summary>
+    <summary>Click here for the guide</summary>
   
     1. Download the [TensorRT](https://developer.nvidia.com/tensorrt) zip file that matches the Windows version you are using.
     2. Choose where you want to install TensorRT. The zip file will install everything into a subdirectory called `TensorRT-8.x.x.x`. This new subdirectory will be referred to as `<installpath>` in the steps below.
