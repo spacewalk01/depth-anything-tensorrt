@@ -74,7 +74,7 @@ pip install -r requirements.txt
     - nvinfer.lib and any other LIB files that your project requires are present under **Linker > Input > Additional Dependencies**.
     6. Download and install any recent [OpenCV](https://opencv.org/releases/) for Windows.
     </details>
-    5. Build the project and run depth_anything.exe
+5. Build the project and run depth_anything.exe
   
 ## Acknowledgement
 This project is based on the following projects:
