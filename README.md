@@ -91,6 +91,8 @@ Add **--fp16** if you want to enable fp16 precision
    make
    ```
 
+Enjoy it!
+![2.jpg](assets/1.jpg "1.jpg")
 
 ## Acknowledgement
 This project is based on the following projects:
