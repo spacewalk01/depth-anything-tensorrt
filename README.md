@@ -78,7 +78,7 @@ pip install -r requirements.txt
 mkdir build
 cd build
 cmake ..
-make
+cmake --build ./ --config Release
 ```
 
   
