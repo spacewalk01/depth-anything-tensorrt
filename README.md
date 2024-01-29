@@ -56,7 +56,7 @@ Note that the inference was conducted using `FP16` precision, with a warm-up per
    trtexec --onnx=depth_anything_vitb14.onnx --saveEngine=depth_anything_vitb14.engine
    ```
 
-Add **--fp16** if you want to enable fp16 precision
+   Add **--fp16** if you want to enable fp16 precision
    ```
    trtexec --onnx=depth_anything_vitb14.onnx --saveEngine=depth_anything_vitb14.engine -fp16
    ```
@@ -92,7 +92,7 @@ Add **--fp16** if you want to enable fp16 precision
    ```
 
 Enjoy it!
-![2.jpg](assets/1.jpg "1.jpg")
+![2.jpg](assets/2.jpg "2.jpg")
 
 ## Acknowledgement
 This project is based on the following projects:
