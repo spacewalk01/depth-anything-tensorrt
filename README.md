@@ -80,7 +80,7 @@ pip install -r requirements.txt
        
     </details>
     
-7. Build and run the project in `Release` mode on using the `x64` architecture.
+7. Build and run the project in `Release` mode using the `x64` architecture.
   
 ## Acknowledgement
 This project is based on the following projects:
