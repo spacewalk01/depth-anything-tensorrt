@@ -7,33 +7,6 @@ Depth estimation is the task of measuring the distance of each pixel relative to
   <img src="assets/parkour_merged.gif" height="225px" width="800px" />
 </p>
 
-## Getting Started
-
-Build an engine from an onnx model:
-```cpp
-TRTModule model("./depth_anything_vitb14.onnx");  
-```
-
-Or you can load a prebuilt engine:
-```cpp
-TRTModule model("./depth_anything_vitb14.engine"); 
-```
-
-Perform depth estimation:
-```cpp
-Mat image = imread( "./zidan.jpg");
-
-Mat depth = model.predict(image);
-```
-
-Apply a pseudocolor map to the grayscale depth image:
-```cpp
-Mat colored_depth;
-applyColorMap(depth, colored_depth, COLORMAP_INFERNO);
-
-imwrite("depth_image.jpg", colored_depth);
-```
-
 ## Performance
 The inference time includes the pre-preprocessing and post-processing stages:
 | Device          | Model | Model Input (WxH) |  Image Resolution (WxH)     | Inference Time(ms) |
@@ -52,6 +25,7 @@ git clone https://github.com/LiheYoung/Depth-Anything
 cd Depth-Anything
 pip install -r requirements.txt
 ```
+
 2. Copy and paste `dpt.py` to `<depth_anything_installpath>/depth_anything` folder.
 
 
@@ -60,7 +34,7 @@ pip install -r requirements.txt
        Here I've only removed a squeeze operation at the end of model's forward function in `dpt.py` to avoid conflicts with TensorRT
     </details>       
     
-3. Export the model to onnx format using `export_to_onnx.py`, you will get a onnx file named such as "depth_anything_vitb14.onnx".
+3. Export the model to onnx format using `export_to_onnx.py`, you will get an onnx file named such as "depth_anything_vitb14.onnx".
 4. Install TensorRT using the guide below (Windows) or TensorRT official guidance.
     <details>
     <summary>Click here for the guide</summary>  
@@ -76,10 +50,17 @@ pip install -r requirements.txt
     - `<installpath>/include` is present under **C/C++ > General > Additional Directories**.
     - nvinfer.lib and any other LIB files that your project requires are present under **Linker > Input > Additional Dependencies**.
     </details>
+
 5. Find trtexec whereis, and then export onnx to engine by using.
 ```
 trtexec --onnx=depth_anything_vitb14.onnx --saveEngine=depth_anything_vitb14.engine
 ```
+
+Add **--fp16** if you want to enable fp16 precision
+```
+trtexec --onnx=depth_anything_vitb14.onnx --saveEngine=depth_anything_vitb14.engine -fp16
+```
+
 6. Download and install any recent [OpenCV](https://opencv.org/releases/) for Windows.
     
 7. Modify CMakelists.txt, change TensorRT and OpenCV pathes.
@@ -93,7 +74,7 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 set(TENSORRT_DIR "path to TensorRT")
 ```
 
-8. Modify main.cpp,change FileFormat, depthEngineFile, VideoPath and imageFolderPath these variables.
+8. Modify main.cpp, change FileFormat, depthEngineFile, VideoPath and imageFolderPath these variables.
 ```
 #define FileFormat 0 
 #define depthEngineFile "depth_anything_vitb14.engine"
@@ -101,7 +82,7 @@ string VideoPath = "wuhan_day.avi";
 string imageFolderPath = "mytest/";
 ```
   
-9. Build project by using camke-gui or following commands.
+9. Build project by using **cmake-gui** or following commands.
 ![1.jpg](assets/1.jpg "1.jpg")
 ```bash
 mkdir build
@@ -115,4 +96,9 @@ make
 This project is based on the following projects:
 - [Depth-Anything](https://github.com/LiheYoung/Depth-Anything) - Unleashing the Power of Large-Scale Unlabeled Data.
 - [TensorRT](https://github.com/NVIDIA/TensorRT/tree/release/8.6/samples) - TensorRT samples and api documentation.
-- [TensorRTx](https://github.com/wang-xinyu/tensorrtx) - Implementation of popular deep learning networks with TensorRT network definition API.
+
+## Contribute
+Thanks to the following people for their contributions to the project:
+
+- [spacewalk01](https://github.com/spacewalk01)
+- [lbq779660843](https://github.com/lbq779660843)
