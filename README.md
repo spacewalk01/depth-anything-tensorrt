@@ -26,7 +26,7 @@ Mat image = imread( "./zidan.jpg");
 Mat depth = model.predict(image);
 ```
 
-Apply a pseudocolor map to a grayscale depth image:
+Apply a pseudocolor map to the grayscale depth image:
 ```cpp
 Mat colored_depth;
 applyColorMap(depth, colored_depth, COLORMAP_INFERNO);
@@ -56,14 +56,11 @@ pip install -r requirements.txt
     <details>
     <summary>Note</summary>
     Here I only removed a squeeze operation at the end of model's forward function in dpt.py to avoid conflicts with tensorrt.
-    </details>
-       
+    </details>       
 3. Export the model to onnx format using `export_to_onnx.py`. 
 4. Install TensorRT using the guide below.
-
     <details>
-    <summary>Click here for the guide</summary>
-  
+    <summary>Click here for the guide</summary>  
     1. Download the [TensorRT](https://developer.nvidia.com/tensorrt) zip file that matches the Windows version you are using.
     2. Choose where you want to install TensorRT. The zip file will install everything into a subdirectory called `TensorRT-8.x.x.x`. This new subdirectory will be referred to as `<installpath>` in the steps below.
     3. Unzip the `TensorRT-8.x.x.x.Windows10.x86_64.cuda-x.x.zip` file to the location that you chose. Where:
@@ -76,7 +73,7 @@ pip install -r requirements.txt
     - nvinfer.lib and any other LIB files that your project requires are present under **Linker > Input > Additional Dependencies**.
     6. Download and install any recent [OpenCV](https://opencv.org/releases/) for Windows.
     </details>
-5. Build the project and run depth_anything.exe
+5. Build and run the project.
   
 ## Acknowledgement
 This project is based on the following projects:
