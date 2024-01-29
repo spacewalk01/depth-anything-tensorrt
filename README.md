@@ -53,10 +53,11 @@ cd Depth-Anything
 pip install -r requirements.txt
 ```
 2. Copy and paste `dpt.py` to `<depth_anything_installpath>/depth_anything` folder.
-   
+
+
     <details>
     <summary>Note</summary>
-    Here I've only removed a squeeze operation at the end of model's forward function in `dpt.py` to avoid conflicts with TensorRT
+       Here I've only removed a squeeze operation at the end of model's forward function in `dpt.py` to avoid conflicts with TensorRT
     </details>       
     
 4. Export the model to onnx format using `export_to_onnx.py`. 
