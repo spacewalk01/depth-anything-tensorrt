@@ -20,11 +20,11 @@ Note that the inference was conducted using `FP16` precision, with a warm-up per
 ## Setup 
 
 1. Download the pretrained [model](https://huggingface.co/spaces/LiheYoung/Depth-Anything/tree/main/checkpoints) and install [Depth-Anything](https://github.com/LiheYoung/Depth-Anything):
-```
-git clone https://github.com/LiheYoung/Depth-Anything
-cd Depth-Anything
-pip install -r requirements.txt
-```
+   ```
+   git clone https://github.com/LiheYoung/Depth-Anything
+   cd Depth-Anything
+   pip install -r requirements.txt
+   ```
 
 2. Copy and paste `dpt.py` to `<depth_anything_installpath>/depth_anything` folder.
 
@@ -34,7 +34,7 @@ pip install -r requirements.txt
        Here I've only removed a squeeze operation at the end of model's forward function in `dpt.py` to avoid conflicts with TensorRT
     </details>       
     
-3. Export the model to onnx format using `export_to_onnx.py`, you will get an onnx file named such as "depth_anything_vitb14.onnx".
+3. Export the model to onnx format using `export_to_onnx.py`, you will get an onnx file named "depth_anything_vit{}14.onnx", such as "depth_anything_vitb14.onnx".
 4. Install TensorRT using the guide below (Windows) or TensorRT official guidance.
     <details>
     <summary>Click here for the guide</summary>  
@@ -51,45 +51,45 @@ pip install -r requirements.txt
     - nvinfer.lib and any other LIB files that your project requires are present under **Linker > Input > Additional Dependencies**.
     </details>
 
-5. Find trtexec whereis, and then export onnx to engine by using.
-```
-trtexec --onnx=depth_anything_vitb14.onnx --saveEngine=depth_anything_vitb14.engine
-```
+5. Find **trtexec** whereis, and then export onnx to engine.
+   ```
+   trtexec --onnx=depth_anything_vitb14.onnx --saveEngine=depth_anything_vitb14.engine
+   ```
 
 Add **--fp16** if you want to enable fp16 precision
-```
-trtexec --onnx=depth_anything_vitb14.onnx --saveEngine=depth_anything_vitb14.engine -fp16
-```
+   ```
+   trtexec --onnx=depth_anything_vitb14.onnx --saveEngine=depth_anything_vitb14.engine -fp16
+   ```
 
 6. Download and install any recent [OpenCV](https://opencv.org/releases/) for Windows.
     
 7. Modify CMakelists.txt, change TensorRT and OpenCV pathes.
-```
-# Find and include OpenCV
-set(OpenCV_DIR "path to OpenCV")
-find_package(OpenCV REQUIRED)
-include_directories(${OpenCV_INCLUDE_DIRS})
-
-# Set TensorRT path if not set in environment variables
-set(TENSORRT_DIR "path to TensorRT")
-```
+   ```
+   # Find and include OpenCV
+   set(OpenCV_DIR "path to OpenCV")
+   find_package(OpenCV REQUIRED)
+   include_directories(${OpenCV_INCLUDE_DIRS})
+   
+   # Set TensorRT path if not set in environment variables
+   set(TENSORRT_DIR "path to TensorRT")
+   ```
 
 8. Modify main.cpp, change FileFormat, depthEngineFile, VideoPath and imageFolderPath these variables.
-```
-#define FileFormat 0 
-#define depthEngineFile "depth_anything_vitb14.engine"
-string VideoPath = "wuhan_day.avi";
-string imageFolderPath = "mytest/";
-```
+   ```
+   #define FileFormat 0 
+   #define depthEngineFile "depth_anything_vitb14.engine"
+   string VideoPath = "wuhan_day.avi";
+   string imageFolderPath = "mytest/";
+   ```
   
-9. Build project by using **cmake-gui** or following commands.
-![1.jpg](assets/1.jpg "1.jpg")
-```bash
-mkdir build
-cd build
-cmake ..
-make
-```
+   9. Build project by using **cmake-gui** or following commands.
+   ![1.jpg](assets/1.jpg "1.jpg")
+   ```bash
+   mkdir build
+   cd build
+   cmake ..
+   make
+   ```
 
 
 ## Acknowledgement
@@ -98,7 +98,7 @@ This project is based on the following projects:
 - [TensorRT](https://github.com/NVIDIA/TensorRT/tree/release/8.6/samples) - TensorRT samples and api documentation.
 
 ## Contribute
-Thanks to the following people for their contributions to the project:
+Thanks to the following people for their contributions to this project:
 
 - [spacewalk01](https://github.com/spacewalk01)
 - [lbq779660843](https://github.com/lbq779660843)
