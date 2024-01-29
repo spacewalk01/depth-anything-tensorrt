@@ -31,7 +31,7 @@ Apply a pseudocolor map to the grayscale depth image:
 Mat colored_depth;
 applyColorMap(depth, colored_depth, COLORMAP_INFERNO);
 
-cv::imwrite("depth_image.jpg", colored_depth);
+imwrite("depth_image.jpg", colored_depth);
 ```
 
 ## Performance
