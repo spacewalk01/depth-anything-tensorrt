@@ -31,8 +31,7 @@ Gray scale to colormap:
 Mat colored_depth;
 applyColorMap(depth, colored_depth, COLORMAP_INFERNO);
 
-imshow("Depth", colored_depth);
-waitKey(0);
+cv::imwrite("depth_image.jpg", colored_depth);
 ```
 
 ## Performance
