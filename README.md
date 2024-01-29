@@ -60,9 +60,8 @@ pip install -r requirements.txt
        Here I've only removed a squeeze operation at the end of model's forward function in `dpt.py` to avoid conflicts with TensorRT
     </details>       
     
-4. Export the model to onnx format using `export_to_onnx.py`. 
-5. Install TensorRT using the guide below.
-   
+3. Export the model to onnx format using `export_to_onnx.py`, you will get a onnx file named such as "depth_anything_vitb14.onnx".
+4. Install TensorRT using the guide below (Windows) or TensorRT official guidance.
     <details>
     <summary>Click here for the guide</summary>  
       
@@ -76,12 +75,42 @@ pip install -r requirements.txt
     - `<installpath>/lib` has been added to your PATH variable and is present under **VC++ Directories > Executable Directories**.
     - `<installpath>/include` is present under **C/C++ > General > Additional Directories**.
     - nvinfer.lib and any other LIB files that your project requires are present under **Linker > Input > Additional Dependencies**.
-    6. Download and install any recent [OpenCV](https://opencv.org/releases/) for Windows.
-       
     </details>
+5. Find trtexec whereis, and then export onnx to engine by using.
+```
+trtexec --onnx=depth_anything_vitb14.onnx --saveEngine=depth_anything_vitb14.engine
+```
+6. Download and install any recent [OpenCV](https://opencv.org/releases/) for Windows.
     
-7. Build and run the project in `Release` mode using the `x64` architecture.
+7. Modify CMakelists.txt, change TensorRT and OpenCV pathes.
+```
+# Find and include OpenCV
+set(OpenCV_DIR "path to OpenCV")
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
+
+# Set TensorRT path if not set in environment variables
+set(TENSORRT_DIR "path to TensorRT")
+```
+
+8. Modify main.cpp,change FileFormat, depthEngineFile, VideoPath and imageFolderPath these variables.
+```
+#define FileFormat 0 
+#define depthEngineFile "depth_anything_vitb14.engine"
+string VideoPath = "wuhan_day.avi";
+string imageFolderPath = "mytest/";
+```
   
+9. Build project by using camke-gui or following commands.
+![1.jpg](assets/1.jpg "1.jpg")
+```bash
+mkdir build
+cd build
+cmake ..
+make
+```
+
+
 ## Acknowledgement
 This project is based on the following projects:
 - [Depth-Anything](https://github.com/LiheYoung/Depth-Anything) - Unleashing the Power of Large-Scale Unlabeled Data.

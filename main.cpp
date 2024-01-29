@@ -94,18 +94,19 @@ int main()
         frame.copyTo(show_frame);
 
         auto start = chrono::system_clock::now();
-        cv::Mat result = inference(frame, depth_model);
+        cv::Mat result_d = inference(frame, depth_model);
         auto end = chrono::system_clock::now();
         cout << "Time of per frame: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << "ms" << endl;
-        addWeighted(show_frame, 0.7, result, 0.3, 0.0, show_frame);
+        addWeighted(show_frame, 0.7, result_d, 0.3, 0.0, show_frame);
+        cv::Mat result;
+        cv::hconcat(result_d, show_frame, result);
+        cv::resize(result, result, cv::Size(1080, 720));
         imshow("depth_result", result);
-        imshow("full_result", show_frame);
         cv::waitKey(100);
 
         std::istringstream iss(imagePath);
         std::string token;
-        // 使用 '/' 作为分隔符
-        while (std::getline(iss, token, '/')) 
+        while (std::getline(iss, token, '/'))
         {  
 
         }
