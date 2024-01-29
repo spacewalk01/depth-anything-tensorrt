@@ -84,7 +84,6 @@ Note that the inference was conducted using `FP16` precision, with a warm-up per
    ```
   
 9. Build project by using **cmake-gui** or following commands.
-   ![1.jpg](assets/1.jpg "1.jpg")
    ```bash
    mkdir build
    cd build
@@ -92,8 +91,6 @@ Note that the inference was conducted using `FP16` precision, with a warm-up per
    make
    ```
 
-Enjoy it!
-![2.jpg](assets/2.jpg "2.jpg")
 
 ## Acknowledgement
 This project is based on the following projects:
