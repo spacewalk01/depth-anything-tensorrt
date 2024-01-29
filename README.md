@@ -82,7 +82,7 @@ Add **--fp16** if you want to enable fp16 precision
    string imageFolderPath = "mytest/";
    ```
   
-   9. Build project by using **cmake-gui** or following commands.
+9. Build project by using **cmake-gui** or following commands.
    ![1.jpg](assets/1.jpg "1.jpg")
    ```bash
    mkdir build
