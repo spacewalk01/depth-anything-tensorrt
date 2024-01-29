@@ -1,7 +1,7 @@
 
 <h1 align="center"><span>Depth-Anything TensorRT C++</span></h1>
 
-This repo provides a TensorRT C++ implementation of [Depth-Anything](https://github.com/LiheYoung/Depth-Anything) model, for real-time inference on GPU.
+Depth Estimation is the task of measuring the distance of each pixel relative to the camera. This repository contains a C++ implementation of the [Depth-Anything](https://github.com/LiheYoung/Depth-Anything) model using the TensorRT API for real-time inference.
 
 <p align="center" margin: 0 auto;>
   <img src="assets/parkour_merged.gif" height="225px" width="800px" />
@@ -26,7 +26,7 @@ Mat image = imread( "./zidan.jpg");
 Mat depth = model.predict(image);
 ```
 
-Gray scale to colormap:
+Apply a pseudocolor map to a grayscale depth image:
 ```cpp
 Mat colored_depth;
 applyColorMap(depth, colored_depth, COLORMAP_INFERNO);
