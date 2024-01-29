@@ -52,13 +52,16 @@ git clone https://github.com/LiheYoung/Depth-Anything
 cd Depth-Anything
 pip install -r requirements.txt
 ```
-2. Copy and paste `dpt.py` to `<depth_anything_installpath>/depth_anything` folder. 
+2. Copy and paste `dpt.py` to `<depth_anything_installpath>/depth_anything` folder.
+   
     <details>
     <summary>Note</summary>
     Here I've only removed a squeeze operation at the end of model's forward function in `dpt.py` to avoid conflicts with TensorRT
     </details>       
-3. Export the model to onnx format using `export_to_onnx.py`. 
-4. Install TensorRT using the guide below.
+    
+4. Export the model to onnx format using `export_to_onnx.py`. 
+5. Install TensorRT using the guide below.
+   
     <details>
     <summary>Click here for the guide</summary>  
     1. Download the [TensorRT](https://developer.nvidia.com/tensorrt) zip file that matches the Windows version you are using.
@@ -73,7 +76,8 @@ pip install -r requirements.txt
     - nvinfer.lib and any other LIB files that your project requires are present under **Linker > Input > Additional Dependencies**.
     6. Download and install any recent [OpenCV](https://opencv.org/releases/) for Windows.
     </details>
-5. Build and run the project.
+    
+7. Build and run the project.
   
 ## Acknowledgement
 This project is based on the following projects:
