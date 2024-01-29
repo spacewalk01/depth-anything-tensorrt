@@ -42,7 +42,7 @@ The inference time includes the pre-preprocessing and post-processing stages:
 | RTX4090        | `Depth-Anything-B`  |518x518  |  1280x720    | 6     |
 | RTX4090        | `Depth-Anything-L`  |518x518  |  1280x720    | 12     |
 
-Note that the inference was conducted using FP16 precision, with a warm-up period of 10 frames, and the reported time corresponds to the last inference.
+Note that the inference was conducted using `FP16` precision, with a warm-up period of 10 frames, and the reported time corresponds to the last inference.
 
 ## Setup 
 
@@ -80,7 +80,7 @@ pip install -r requirements.txt
        
     </details>
     
-7. Build and run the project.
+7. Build and run the project in `Release` mode on using the `x64` architecture.
   
 ## Acknowledgement
 This project is based on the following projects:

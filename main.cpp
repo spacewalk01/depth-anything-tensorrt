@@ -2,8 +2,8 @@
 
 int main()
 {
-    string model_path = "./checkpoints/depth_anything_vitb14.onnx";
-    string image_path = "your image path";
+    string model_path = "./depth_anything_vitb14.engine";
+    string image_path = "./zidane.jpg";
 
     TRTModule model(model_path);
 

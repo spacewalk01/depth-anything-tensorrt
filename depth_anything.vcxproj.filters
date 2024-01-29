@@ -22,7 +22,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="depth_anything\trt_module.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>depth_anything</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
