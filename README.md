@@ -73,25 +73,39 @@ Note that the inference was conducted using `FP16` precision, with a warm-up per
    # Set TensorRT path if not set in environment variables
    set(TENSORRT_DIR "path to TensorRT")
    ```
-
-8. Modify main.cpp, change FileFormat, depthEngineFile, VideoPath and imageFolderPath these variables.
-   ```
-   #define FileFormat 0 
-   #define depthEngineFile "depth_anything_vitb14.engine"
-   string VideoPath = "wuhan_day.avi";
-   string imageFolderPath = "mytest/";
-   ```
   
-9. Build project by using **cmake-gui** or following commands.
+8. Build project by using **cmake-gui**(Windows) or following commands(Linux).
    ![1.jpg](assets/1.jpg "1.jpg")
    ```bash
    mkdir build
-   cd build
+   cd build && mkdir out_dir
    cmake ..
    make
    ```
 
-Enjoy it!
+Usage:
+:   Linux
+
+``` shell
+# infer image
+./depth-anything-tensorrt-simplified depth_anything_vitb14.engine test.jpg
+# infer folder(images)
+./depth-anything-tensorrt-simplified depth_anything_vitb14.engine data
+# infer video
+./depth-anything-tensorrt-simplified depth_anything_vitb14.engine test.mp4 # the video path
+```
+
+   Windows
+
+``` shell
+# infer image
+./depth-anything-tensorrt-simplified.exe depth_anything_vitb14.engine test.jpg
+# infer folder(images)
+./depth-anything-tensorrt-simplified.exe depth_anything_vitb14.engine data
+# infer video
+./depth-anything-tensorrt-simplified.exe depth_anything_vitb14.engine test.mp4 # the video path
+```
+Enjoy it! 
 ![2.jpg](assets/2.jpg "2.jpg")
 
 ## Acknowledgement
