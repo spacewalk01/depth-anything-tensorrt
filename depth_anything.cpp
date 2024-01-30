@@ -1,6 +1,5 @@
 #include "depth_anything.h"
 
-
 // set network params
 float DepthAnything::input_h = 518;
 float DepthAnything::input_w = 518;
@@ -138,9 +137,7 @@ cv::Mat DepthAnything::predict(cv::Mat& image)
 
     cv::Mat colormap;
     cv::applyColorMap(mask_mat, colormap, cv::COLORMAP_RAINBOW);
-    //cv::imshow("colormap_src", colormap);
     int limX, limY;
-    std::cout << img_w << img_h << std::endl;
     if (img_w > img_h)
     {
         limX = input_w;
@@ -151,12 +148,7 @@ cv::Mat DepthAnything::predict(cv::Mat& image)
         limX = input_w * img_w / img_h;
         limY = input_w;
     }
-    std::cout << limX << limY << std::endl;
     cv::resize(colormap, colormap, cv::Size(img_w, img_h));
-
-    
-    //cv::imshow("colormap", colormap);
-    //cv::waitKey(0);
     return colormap;
 }
 
