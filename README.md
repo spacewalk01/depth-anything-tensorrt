@@ -20,7 +20,7 @@ Note that the inference was conducted using `FP16` precision, with a warm-up per
 ## Setup 
 
 1. Download the pretrained [model](https://huggingface.co/spaces/LiheYoung/Depth-Anything/tree/main/checkpoints) and install [Depth-Anything](https://github.com/LiheYoung/Depth-Anything):
-   ```
+   ```bash
    git clone https://github.com/LiheYoung/Depth-Anything
    cd Depth-Anything
    pip install -r requirements.txt
@@ -52,7 +52,7 @@ Note that the inference was conducted using `FP16` precision, with a warm-up per
     </details>
 
 
-5. Find **trtexec** whereis, and then export onnx to engine.
+5. Find **trtexec** and then export onnx to engine.
    ```
    trtexec --onnx=depth_anything_vitb14.onnx --saveEngine=depth_anything_vitb14.engine
    ```
@@ -64,7 +64,7 @@ Note that the inference was conducted using `FP16` precision, with a warm-up per
 
 6. Download and install any recent [OpenCV](https://opencv.org/releases/) for Windows.
     
-7. Modify CMakelists.txt, change TensorRT and OpenCV pathes.
+7. Modify CMakelists.txt, change TensorRT and OpenCV paths.
    ```
    # Find and include OpenCV
    set(OpenCV_DIR "path to OpenCV")
@@ -75,8 +75,12 @@ Note that the inference was conducted using `FP16` precision, with a warm-up per
    set(TENSORRT_DIR "path to TensorRT")
    ```
   
+
 8. Build project by using **cmake-gui**(Windows) or following commands(Linux).
    ![1.jpg](assets/1.jpg "1.jpg")
+=======
+9. Build project by using **cmake-gui** or following commands.
+
    ```bash
    mkdir build
    cd build && mkdir out_dir
@@ -108,6 +112,8 @@ Usage:
 ```
 Enjoy it! 
 ![2.jpg](assets/2.jpg "2.jpg")
+=======
+
 
 ## Acknowledgement
 This project is based on the following projects:
