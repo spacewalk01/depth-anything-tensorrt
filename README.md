@@ -7,7 +7,7 @@ Depth estimation is the task of measuring the distance of each pixel relative to
   <img src="assets/parkour_merged.gif" height="225px" width="800px" />
 </p>
 
-## Performance
+## ⏱️ Performance
 The inference time includes the pre-preprocessing and post-processing stages:
 | Device          | Model | Model Input (WxH) |  Image Resolution (WxH)     | Inference Time(ms) |
 |:---------------:|:------------:|:------------:|:------------:|:------------:|
@@ -19,8 +19,35 @@ Note that the inference was conducted using `FP16` precision, with a warm-up per
 
 ## 🍼 How to use this icons?
 
-- [Setup Guide](https://github.com/spacewalk01/depth-anything-tensorrt/issues/10) 🚀 
+Build an engine from an onnx model:
+```cpp
+TRTModule model("./depth_anything_vitb14.onnx");  
+```
 
+Or you can load a prebuilt engine:
+```cpp
+TRTModule model("./depth_anything_vitb14.engine"); 
+```
+
+Perform depth estimation:
+```cpp
+Mat image = imread( "./zidan.jpg");
+
+Mat depth = model.predict(image);
+```
+
+Gray scale to colormap:
+```cpp
+Mat colored_depth;
+applyColorMap(depth, colored_depth, COLORMAP_INFERNO);
+
+imshow("Depth", colored_depth);
+waitKey(0);
+```
+
+## 🛠️ Setup
+
+- [Installation Guide](https://github.com/spacewalk01/depth-anything-tensorrt/issues/10) 🚀 
 
 ## Acknowledgement
 This project is based on the following projects:
