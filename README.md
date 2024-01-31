@@ -19,30 +19,26 @@ Note that the inference was conducted using `FP16` precision, with a warm-up per
 
 ## 🍼 How to use this?
 
-Build an engine from an onnx model:
-```cpp
-TRTModule model("./depth_anything_vitb14.onnx");  
+**Linux**
+
+``` shell
+# infer image
+./depth-anything-tensorrt-simplified depth_anything_vitb14.engine test.jpg
+# infer folder(images)
+./depth-anything-tensorrt-simplified depth_anything_vitb14.engine data
+# infer video
+./depth-anything-tensorrt-simplified depth_anything_vitb14.engine test.mp4 # the video path
 ```
 
-Or you can load a prebuilt engine:
-```cpp
-TRTModule model("./depth_anything_vitb14.engine"); 
-```
+**Windows**
 
-Perform depth estimation:
-```cpp
-Mat image = imread( "./zidan.jpg");
-
-Mat depth = model.predict(image);
-```
-
-Gray scale to colormap:
-```cpp
-Mat colored_depth;
-applyColorMap(depth, colored_depth, COLORMAP_INFERNO);
-
-imshow("Depth", colored_depth);
-waitKey(0);
+``` shell
+# infer image
+./depth-anything-tensorrt-simplified.exe depth_anything_vitb14.engine test.jpg
+# infer folder(images)
+./depth-anything-tensorrt-simplified.exe depth_anything_vitb14.engine data
+# infer video
+./depth-anything-tensorrt-simplified.exe depth_anything_vitb14.engine test.mp4 # the video path
 ```
 
 ## 🛠️ Setup
