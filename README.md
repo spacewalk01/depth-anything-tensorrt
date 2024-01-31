@@ -17,7 +17,7 @@ The inference time includes the pre-preprocessing and post-processing stages:
 
 Note that the inference was conducted using `FP16` precision, with a warm-up period of 10 frames, and the reported time corresponds to the last inference.
 
-## 🍼 How to use this icons?
+## 🍼 How to use this?
 
 Build an engine from an onnx model:
 ```cpp
