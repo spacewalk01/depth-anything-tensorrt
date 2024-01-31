@@ -26,9 +26,3 @@ Note that the inference was conducted using `FP16` precision, with a warm-up per
 This project is based on the following projects:
 - [Depth-Anything](https://github.com/LiheYoung/Depth-Anything) - Unleashing the Power of Large-Scale Unlabeled Data.
 - [TensorRT](https://github.com/NVIDIA/TensorRT/tree/release/8.6/samples) - TensorRT samples and api documentation.
-
-## Contribute
-Thanks to the following people for their contributions to this project:
-
-- [spacewalk01](https://github.com/spacewalk01)
-- [lbq779660843](https://github.com/lbq779660843)
