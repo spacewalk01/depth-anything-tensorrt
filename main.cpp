@@ -109,7 +109,7 @@ int main(int argc, char** argv)
             cv::Mat result_d = inference(frame, depth_model);
             auto end = chrono::system_clock::now();
             cout << "Time of per frame: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << "ms" << endl;
-            addWeighted(show_frame, 0.7, result_d, 0.3, 0.0, show_frame);
+            //addWeighted(show_frame, 0.7, result_d, 0.3, 0.0, show_frame);
             cv::Mat result;
             cv::hconcat(result_d, show_frame, result);
             cv::resize(result, result, cv::Size(1080, 720));
@@ -142,7 +142,7 @@ int main(int argc, char** argv)
             cv::Mat result_d = inference(frame, depth_model);
             auto end = chrono::system_clock::now();
             cout << "Time of per frame: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << "ms" << endl;
-            addWeighted(show_frame, 0.7, result_d, 0.3, 0.0, show_frame);
+            //addWeighted(show_frame, 0.7, result_d, 0.3, 0.0, show_frame);
             cv::Mat result;
             cv::hconcat(result_d, show_frame, result);
             cv::resize(result, result, cv::Size(1080, 720));
