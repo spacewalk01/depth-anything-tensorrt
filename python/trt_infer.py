@@ -33,4 +33,5 @@ with engine.create_execution_context() as context:
 depth = np.reshape(depth, (518, 518))
 depth = (depth - depth.min()) / (depth.max() - depth.min()) * 255.0
 depth = depth.astype(np.uint8)
+colored_depth = cv2.applyColorMap(depth, cv2.COLORMAP_INFERNO)[:, :, ::-1]
 cv2.imwrite(f'test.jpg', depth)
