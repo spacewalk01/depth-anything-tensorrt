@@ -71,7 +71,7 @@ with gr.Blocks(css=css) as demo:
             # print(image.shape)
                         
             logger = trt.Logger(trt.Logger.WARNING)
-            with open('path/to/depth_anything_vitl14.engine', 'rb') as f, trt.Runtime(logger) as runtime:
+            with open('/home/lwq/DepthAM/depth-anything-tensorrt-build/depth_anything_vitl14.engine', 'rb') as f, trt.Runtime(logger) as runtime:
                 engine = runtime.deserialize_cuda_engine(f.read())
             
             start_time = time.time()
@@ -107,9 +107,9 @@ with gr.Blocks(css=css) as demo:
 
     submit.click(on_submit, inputs=[input_image], outputs=[depth_image_slider, raw_file])
 
-    example_files = os.listdir('assets/examples')
+    example_files = os.listdir('examples')
     example_files.sort()
-    example_files = [os.path.join('assets/examples', filename) for filename in example_files]
+    example_files = [os.path.join('examples', filename) for filename in example_files]
     examples = gr.Examples(examples=example_files, inputs=[input_image], outputs=[depth_image_slider, raw_file], fn=on_submit, cache_examples=False)
     
 
