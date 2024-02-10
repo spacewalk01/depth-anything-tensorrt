@@ -71,7 +71,7 @@ with gr.Blocks(css=css) as demo:
             # print(image.shape)
                         
             logger = trt.Logger(trt.Logger.WARNING)
-            with open('/home/lwq/DepthAM/depth-anything-tensorrt/depth_anything_vitl14.engine', 'rb') as f, trt.Runtime(logger) as runtime:
+            with open('path/to/depth_anything_vitl14.engine', 'rb') as f, trt.Runtime(logger) as runtime:
                 engine = runtime.deserialize_cuda_engine(f.read())
             
             start_time = time.time()

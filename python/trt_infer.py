@@ -6,12 +6,12 @@ import pycuda.driver as cuda  # GPU CPU之间的数据传输
 import tensorrt as trt
 from depth_anything.util.transform import load_image
 
-input_image, ori_shape = load_image('/home/lwq/DepthAM/ori_img/test.jpg')
+input_image, ori_shape = load_image('path/to/test.jpg')
 
 #创建logger：日志记录器
 logger = trt.Logger(trt.Logger.WARNING)
 #创建runtime并反序列化生成engine
-with open('/home/lwq/DepthAM/depth-anything-tensorrt/depth_anything_vitl14.engine', 'rb') as f, trt.Runtime(logger) as runtime:
+with open('path/to/depth_anything_vitl14.engine', 'rb') as f, trt.Runtime(logger) as runtime:
     engine = runtime.deserialize_cuda_engine(f.read())
 
 with engine.create_execution_context() as context:
