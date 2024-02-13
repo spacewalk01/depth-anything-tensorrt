@@ -17,7 +17,7 @@ The inference time includes the pre-preprocessing and post-processing stages:
 
 Note that the inference was conducted using `FP16` precision, with a warm-up period of 10 frames, and the reported time corresponds to the last inference.
 
-## 🍼 Usage
+## 🚀 Usage
 
 **Linux:**
 
@@ -43,7 +43,7 @@ Note that the inference was conducted using `FP16` precision, with a warm-up per
 
 ## 🛠️ Setup
 
-- [How to build](https://github.com/spacewalk01/depth-anything-tensorrt/issues/14#issue-2113875896) 🚀 
+We refer to our [docs/INSTALL.md](https://github.com/spacewalk01/depth-anything-tensorrt/issues/14#issue-2113875896) for detailed installation instructions.
 
 ## 👏 Acknowledgement
 
