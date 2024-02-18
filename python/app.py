@@ -12,7 +12,8 @@ from PIL import Image
 from torchvision.transforms import Compose
 import pycuda.autoinit
 import time
-    
+
+engine_path = '/home/lwq/DepthAM/depth-anything-tensorrt-build/depth_anything_vitl14.engine'
 
 css = """
 #img-display-container {
@@ -27,9 +28,9 @@ css = """
 """
 
 title = "# Depth Anything"
-description = """Official demo for **Depth Anything: Unleashing the Power of Large-Scale Unlabeled Data**.
+description = """TensorRT API demo for **Depth Anything: Unleashing the Power of Large-Scale Unlabeled Data**.
 
-Please refer to our [paper](https://arxiv.org/abs/2401.10891), [project page](https://depth-anything.github.io), or [github](https://github.com/LiheYoung/Depth-Anything) for more details."""
+Please refer to [paper](https://arxiv.org/abs/2401.10891), [project page](https://depth-anything.github.io), [github](https://github.com/LiheYoung/Depth-Anything), [github for tensorrt](https://github.com/spacewalk01/depth-anything-tensorrt) for more details."""
 
 transform = Compose([
         Resize(
@@ -71,7 +72,7 @@ with gr.Blocks(css=css) as demo:
             # print(image.shape)
                         
             logger = trt.Logger(trt.Logger.WARNING)
-            with open('/home/lwq/DepthAM/depth-anything-tensorrt-build/depth_anything_vitl14.engine', 'rb') as f, trt.Runtime(logger) as runtime:
+            with open(engine_path, 'rb') as f, trt.Runtime(logger) as runtime:
                 engine = runtime.deserialize_cuda_engine(f.read())
             
             start_time = time.time()
