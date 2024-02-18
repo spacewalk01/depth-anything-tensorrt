@@ -4,7 +4,7 @@ import tempfile
 import cv2
 import gradio as gr
 import numpy as np
-import pycuda.driver as cuda  # GPU CPU之间的数据传输
+import pycuda.driver as cuda  # GPU-CPU
 import tensorrt as trt
 from depth_anything.util.transform import NormalizeImage, PrepareForNet, Resize
 from gradio_imageslider import ImageSlider
@@ -59,7 +59,7 @@ with gr.Blocks(css=css) as demo:
     submit = gr.Button("Submit")
         
     def on_submit(image):
-        # 创建一个CUDA上下文
+        # Create a CUDA context
         ctx = cuda.Device(0).make_context()
         try:
             original_image = image.copy()
@@ -69,13 +69,12 @@ with gr.Blocks(css=css) as demo:
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) / 255.0
             image = transform({'image': image})['image']
             image = image[None]
-            # print(image.shape)
                         
+            # Create logger and load the TensorRT engine
             logger = trt.Logger(trt.Logger.WARNING)
             with open(engine_path, 'rb') as f, trt.Runtime(logger) as runtime:
                 engine = runtime.deserialize_cuda_engine(f.read())
-            
-            start_time = time.time()
+
             with engine.create_execution_context() as context:
                 input_shape = context.get_tensor_shape('input')
                 output_shape = context.get_tensor_shape('output')
@@ -84,13 +83,16 @@ with gr.Blocks(css=css) as demo:
                 d_input = cuda.mem_alloc(h_input.nbytes)
                 d_output = cuda.mem_alloc(h_output.nbytes)
                 stream = cuda.Stream()
+                
+                # Copy the input image to the pagelocked memory
                 np.copyto(h_input, image.ravel())
+                
+                # Copy the input to the GPU, execute the inference, and copy the output back to the CPU
                 cuda.memcpy_htod_async(d_input, h_input, stream)
                 context.execute_async_v2(bindings=[int(d_input), int(d_output)], stream_handle=stream.handle)
                 cuda.memcpy_dtoh_async(h_output, d_output, stream)
                 stream.synchronize()
                 depth = h_output
-            print(f'Infer time: {int((time.time()-start_time)*1000)}ms')
         
             depth = np.reshape(depth, (518, 518))
             depth = cv2.resize(depth, (w, h))
@@ -102,7 +104,7 @@ with gr.Blocks(css=css) as demo:
             depth = depth.astype(np.uint8)
             colored_depth = cv2.applyColorMap(depth, cv2.COLORMAP_INFERNO)[:, :, ::-1]
         finally:
-            ctx.pop() # 确保在函数结束时弹出上下文
+            ctx.pop() # Ensure the context is popped at the end of the function
             
         return [(original_image, colored_depth), tmp.name] # colored_depth
 
