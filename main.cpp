@@ -1,16 +1,17 @@
+#include <iostream>
+#include <string>
+#include <tuple>
+#include <NvInfer.h>
+#include <opencv2/opencv.hpp>
+#include "utils.h"
+#include "inference.h"
+#include "depth_anything.h"
 #ifdef _WIN32
 #include <windows.h>
 #else
 #include <sys/stat.h>
 #include <unistd.h>
 #endif
-
-#include <iostream>
-#include <string>
-#include <tuple>
-#include <NvInfer.h>
-#include <opencv2/opencv.hpp>
-#include "yolov9.h"
 
 using namespace std;
 
@@ -37,6 +38,20 @@ bool IsFile(const std::string& path) {
 #endif
 }
 
+
+/**
+ * @brief Setting up Tensorrt logger
+*/
+class Logger : public nvinfer1::ILogger
+{
+    void log(Severity severity, const char* msg) noexcept override
+    {
+        // Only output logs with severity greater than warning
+        if (severity <= Severity::kWARNING)
+            std::cout << msg << std::endl;
+    }
+}logger;
+
 int main(int argc, char** argv)
 {
     const std::string engine_file_path{ argv[1] };
@@ -45,14 +60,13 @@ int main(int argc, char** argv)
     bool                     isVideo{ false };
     assert(argc == 3);
 
-    if (IsFile(path)) 
-    {
-        std::string suffix = path.substr(path.find_last_of('.') + 1);
-        if (suffix == "jpg" || suffix == "jpeg" || suffix == "png")
+    if (IsFile(path)) {
+    std::string suffix = path.substr(path.find_last_of('.') + 1);
+        if (suffix == "jpg" || suffix == "jpeg" || suffix == "png") 
         {
             imagePathList.push_back(path);
         }
-        else if (suffix == "mp4" || suffix == "avi" || suffix == "m4v" || suffix == "mpeg" || suffix == "mov" || suffix == "mkv")
+        else if (suffix == "mp4" || suffix == "avi" || suffix == "m4v" || suffix == "mpeg" || suffix == "mov" || suffix == "mkv") 
         {
             isVideo = true;
         }
@@ -61,14 +75,13 @@ int main(int argc, char** argv)
             std::abort();
         }
     }
-    else if (IsPathExist(path))
+    else if (IsPathExist(path)) 
     {
         cv::glob(path + "/*.jpg", imagePathList);
     }
-
     // Assume it's a folder, add logic to handle folders
     // init model
-    Yolov9 yolomodel(engine_file_path);
+    DepthAnything depth_model(engine_file_path, logger);
 
     if (isVideo) {
         //path to video
@@ -87,20 +100,22 @@ int main(int argc, char** argv)
             cv::Mat show_frame;
             cap >> frame;
 
-            if (frame.empty()) break;
-
+            if (frame.empty())
+                break;
+            frame.copyTo(show_frame);
+            cv::Mat new_frame;
+            frame.copyTo(new_frame);
             auto start = std::chrono::system_clock::now();
-            
-            std::vector<Detection> bboxes;
-            yolomodel.predict(frame, bboxes);
-            yolomodel.draw_bboxes(frame, bboxes);
-
+            cv::Mat result_d = inference(frame, depth_model);
             auto end = chrono::system_clock::now();
             cout << "Time of per frame: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << "ms" << endl;
-
-            imshow("prediction", frame);
-            output_video.write(frame);
-            cv::waitKey(1);
+            //addWeighted(show_frame, 0.7, result_d, 0.3, 0.0, show_frame);
+            cv::Mat result;
+            cv::hconcat(result_d, show_frame, result);
+            cv::resize(result, result, cv::Size(1080, 720));
+            imshow("depth_result", result);
+            output_video.write(result_d);
+            cv::waitKey(100);
         }
 
         // Release resources
@@ -110,7 +125,7 @@ int main(int argc, char** argv)
     }
     else {
         // path to folder saves images
-        string imageFolderPath_out = "results/";
+        string imageFolderPath_out = "out_dir/";
         for (const auto& imagePath : imagePathList)
         {
             // open image
@@ -120,26 +135,27 @@ int main(int argc, char** argv)
                 cerr << "Error reading image: " << imagePath << endl;
                 continue;
             }
+            cv::Mat show_frame;
+            frame.copyTo(show_frame);
 
             auto start = chrono::system_clock::now();
-
-            std::vector<Detection> bboxes;
-            yolomodel.predict(frame, bboxes);
-            yolomodel.draw_bboxes(frame, bboxes);
-
+            cv::Mat result_d = inference(frame, depth_model);
             auto end = chrono::system_clock::now();
             cout << "Time of per frame: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << "ms" << endl;
-            
+            //addWeighted(show_frame, 0.7, result_d, 0.3, 0.0, show_frame);
+            cv::Mat result;
+            cv::hconcat(result_d, show_frame, result);
+            cv::resize(result, result, cv::Size(1080, 720));
+            imshow("depth_result", result);
+            cv::waitKey(100);
+
             std::istringstream iss(imagePath);
             std::string token;
             while (std::getline(iss, token, '/'))
             {
             }
-            cv::imwrite(imageFolderPath_out + token, frame);
-            std::cout << imageFolderPath_out + token << std::endl;
-
-            imshow("prediction", frame);
-            cv::waitKey(0);
+            cv::imwrite(imageFolderPath_out + token, result);
+            //std::cout << imageFolderPath_out + token << std::endl;
         }
     }
     return 0;
