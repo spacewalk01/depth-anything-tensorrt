@@ -137,6 +137,8 @@ cv::Mat DepthAnything::predict(cv::Mat& image)
 
     cv::Mat colormap;
     cv::applyColorMap(mask_mat, colormap, cv::COLORMAP_RAINBOW);
+
+    // Rescale the colormap
     int limX, limY;
     if (img_w > img_h)
     {
