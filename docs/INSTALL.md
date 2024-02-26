@@ -7,7 +7,7 @@
    ```
 
 2. Copy and paste `dpt.py` in this repo to `<depth_anything_installpath>/depth_anything` folder. Note that I've only removed a squeeze operation at the end of model's forward function in `dpt.py` to avoid conflicts with TensorRT.
-3. Export the model to onnx format using `export_to_onnx.py`, you will get an onnx file named `depth_anything_vit{}14.onnx`, such as `depth_anything_vitb14.onnx`.
+3. Export the model to onnx format using `export_to_onnx.py`. You will get an onnx file named `depth_anything_vit{}14.onnx`, such as `depth_anything_vitb14.onnx`.
 4. Install TensorRT using TensorRT official guidance.
 
     <details>
