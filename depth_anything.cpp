@@ -86,9 +86,6 @@ std::vector<float> DepthAnything::preprocess(cv::Mat& image)
 {
     std::tuple<cv::Mat, int, int> resized = resize_depth(image, input_w, input_h);
     cv::Mat resized_image = std::get<0>(resized);
-    //offset[0] = std::get<1>(resized);
-    //offset[1] = std::get<2>(resized);
-    //cv::cvtColor(resized_image, resized_image, cv::COLOR_BGR2RGB);
     std::vector<float> input_tensor;
     for (int k = 0; k < 3; k++)
     {
@@ -135,6 +132,7 @@ cv::Mat DepthAnything::predict(cv::Mat& image)
     }
     cv::normalize(mask_mat, mask_mat, 0, 255, cv::NORM_MINMAX, CV_8U);
 
+    // Create a colormap from the depth data
     cv::Mat colormap;
     cv::applyColorMap(mask_mat, colormap, cv::COLORMAP_RAINBOW);
 
