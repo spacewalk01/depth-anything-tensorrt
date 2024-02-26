@@ -113,18 +113,18 @@ cv::Mat DepthAnything::predict(cv::Mat& image)
     cudaStreamSynchronize(stream);
 
     // Print some debug information
-    std::vector<int> mask_values(input_h * input_w);
-    cudaMemcpyAsync(mask_values.data(), buffer[1], input_h * input_w * sizeof(int), cudaMemcpyDeviceToHost);
+    std::vector<int> depth_data(input_h * input_w);
+    cudaMemcpyAsync(depth_data.data(), buffer[1], input_h * input_w * sizeof(int), cudaMemcpyDeviceToHost);
 
     cudaFree(buffer[0]);
     cudaFree(buffer[1]);
 
-    // Convert the entire mask_values vector to a CV_32FC1 Mat
+    // Convert the entire depth_data vector to a CV_32FC1 Mat
     cv::Mat mask_mat(input_h, input_w, CV_32FC1);
     for (int i = 0; i < input_h; i++) {
         for (int j = 0; j < input_w; j++) {
             // Convert integer value to float
-            float float_value = *reinterpret_cast<float*>(&mask_values[i * input_w + j]);
+            float float_value = *reinterpret_cast<float*>(&depth_data[i * input_w + j]);
 
             // Assign the float value to the corresponding pixel in the Mat
             mask_mat.at<float>(i, j) = float_value;
