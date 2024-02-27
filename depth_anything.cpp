@@ -33,10 +33,6 @@ DepthAnything::DepthAnything(std::string model_path, nvinfer1::ILogger& logger)
 
     // create CUDA stream
     cudaStreamCreate(&stream);
-
-    // Initialize offset
-    offset.push_back(0);
-    offset.push_back(0);
 }
 
 /**
@@ -102,17 +98,23 @@ std::vector<float> DepthAnything::preprocess(cv::Mat& image)
 
 cv::Mat DepthAnything::predict(cv::Mat& image)
 {
+    cv::Mat clone_image;
+    image.copyTo(clone_image);
+
     int img_w = image.cols;
     int img_h = image.rows;
-    //cv::imshow("src", image);
-    std::vector<float> input = preprocess(image);
+
+    // Preprocessing
+    std::vector<float> input = preprocess(clone_image);
     cudaMalloc(&buffer[0], 3 * input_h * input_w * sizeof(float));
     cudaMalloc(&buffer[1], input_h * input_w * sizeof(int));
     cudaMemcpyAsync(buffer[0], input.data(), 3 * input_h * input_w * sizeof(float), cudaMemcpyHostToDevice, stream);
+
+    // Inference depth model
     context->enqueueV2(buffer, stream, nullptr);
     cudaStreamSynchronize(stream);
 
-    // Print some debug information
+    // Postprocessing
     std::vector<int> depth_data(input_h * input_w);
     cudaMemcpyAsync(depth_data.data(), buffer[1], input_h * input_w * sizeof(int), cudaMemcpyDeviceToHost);
 
@@ -149,7 +151,8 @@ cv::Mat DepthAnything::predict(cv::Mat& image)
         limY = input_w;
     }
     cv::resize(colormap, colormap, cv::Size(img_w, img_h));
+
+    clone_image.release();
+
     return colormap;
 }
-
-

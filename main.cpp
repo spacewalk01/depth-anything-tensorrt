@@ -4,7 +4,6 @@
 #include <NvInfer.h>
 #include <opencv2/opencv.hpp>
 #include "utils.h"
-#include "inference.h"
 #include "depth_anything.h"
 #ifdef _WIN32
 #include <windows.h>
@@ -106,7 +105,7 @@ int main(int argc, char** argv)
             cv::Mat new_frame;
             frame.copyTo(new_frame);
             auto start = std::chrono::system_clock::now();
-            cv::Mat result_d = inference(frame, depth_model);
+            cv::Mat result_d = depth_model.predict(frame);
             auto end = chrono::system_clock::now();
             cout << "Time of per frame: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << "ms" << endl;
             //addWeighted(show_frame, 0.7, result_d, 0.3, 0.0, show_frame);
@@ -139,7 +138,7 @@ int main(int argc, char** argv)
             frame.copyTo(show_frame);
 
             auto start = chrono::system_clock::now();
-            cv::Mat result_d = inference(frame, depth_model);
+            cv::Mat result_d = depth_model.predict(frame);
             auto end = chrono::system_clock::now();
             cout << "Time of per frame: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << "ms" << endl;
             //addWeighted(show_frame, 0.7, result_d, 0.3, 0.0, show_frame);
