@@ -43,7 +43,7 @@ Note that the inference was conducted using `FP16` precision, with a warm-up per
 
 ## 🛠️ Setup
 
-We refer to our [docs/INSTALL.md](https://github.com/spacewalk01/depth-anything-tensorrt/blob/main/docs/INSTALL.md) for detailed installation instructions.
+Refer to our [docs/INSTALL.md](https://github.com/spacewalk01/depth-anything-tensorrt/blob/main/docs/INSTALL.md) for detailed installation instructions.
 
 ## 👏 Acknowledgement
 
