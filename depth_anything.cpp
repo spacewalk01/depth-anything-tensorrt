@@ -152,7 +152,5 @@ cv::Mat DepthAnything::predict(cv::Mat& image)
     }
     cv::resize(colormap, colormap, cv::Size(img_w, img_h));
 
-    clone_image.release();
-
     return colormap;
 }
