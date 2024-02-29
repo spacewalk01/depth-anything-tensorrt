@@ -19,7 +19,7 @@ Note that the inference was conducted using `FP16` precision, with a warm-up per
 
 ## 🚀 Usage
 
-🐧**Linux:**
+**Linux:**
 
 ``` shell
 # infer image
@@ -30,7 +30,7 @@ Note that the inference was conducted using `FP16` precision, with a warm-up per
 ./depth-anything-tensorrt depth_anything_vitb14.engine test.mp4 # the video path
 ```
 
-🪟**Windows:**
+**Windows:**
 
 ``` shell
 # infer image
