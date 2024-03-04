@@ -21,5 +21,5 @@ python yolov9_trt.py --engine <path to trt engine> --data <input dir> --outdir <
 
 For example:
 ```bash
-python yolov9_trt.py --engine path/to/engine --img data --outdir result
+python yolov9_trt.py --engine yolov9-c.engine --img data --outdir result
 ```
