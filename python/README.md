@@ -16,7 +16,7 @@ pip install -r requirements.txt
 ### Running
 
 ```bash
-python yolov9_trt.py --engine <path to trt engine> --data <input dir> --outdir <outdir> [--grayscale]
+python yolov9_trt.py --engine <path to trt engine> --data <input dir> --outdir <outdir> 
 ```
 
 For example:
