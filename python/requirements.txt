@@ -1,0 +1,6 @@
+# requirements
+# Usage: pip install -r requirements.txt
+
+cuda-python
+tensorrt-8.6.0-cp310-none-win_amd64.whl
+opencv-python
