@@ -21,18 +21,7 @@ The inference time includes the pre-preprocessing and post-processing stages:
 
 ## 🚀 Usage
 
-🐧 **Linux**
-
-``` shell
-# infer image
-./depth-anything-tensorrt depth_anything_vitb14.engine test.jpg
-# infer folder(images)
-./depth-anything-tensorrt depth_anything_vitb14.engine data
-# infer video
-./depth-anything-tensorrt depth_anything_vitb14.engine test.mp4 # the video path
-```
-
-🪟 **Windows**
+#### C++
 
 ``` shell
 # infer image
@@ -41,6 +30,13 @@ depth-anything-tensorrt.exe depth_anything_vitb14.engine test.jpg
 depth-anything-tensorrt.exe depth_anything_vitb14.engine data
 # infer video
 depth-anything-tensorrt.exe depth_anything_vitb14.engine test.mp4 # the video path
+```
+
+#### Python
+
+```
+cd python
+python trt_infer.py --engine <path to trt engine> --img <single-img> --outdir <outdir> [--grayscale]
 ```
 
 ## 🛠️ Setup
