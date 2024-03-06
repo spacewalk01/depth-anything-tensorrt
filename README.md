@@ -41,6 +41,10 @@ depth-anything-tensorrt.exe depth_anything_vitb14.engine data
 depth-anything-tensorrt.exe depth_anything_vitb14.engine test.mp4 # the video path
 ```
 
+### Examples
+
+Download [example videos](https://github.com/LiheYoung/Depth-Anything/tree/main/assets/examples_video)
+
 ## 🛠️ Setup
 
 Refer to our [docs/INSTALL.md](https://github.com/spacewalk01/depth-anything-tensorrt/blob/main/docs/INSTALL.md) for detailed installation instructions.
