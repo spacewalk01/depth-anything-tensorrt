@@ -52,8 +52,10 @@ Refer to our [docs/INSTALL.md](https://github.com/spacewalk01/depth-anything-ten
 #### Python
 
 ``` shell
-cd depth-anything-tensorrt/python
-pip install -r requirements.txt
+cd <tensorrt installation path>/python
+pip install cuda-python
+pip install tensorrt-8.6.0-cp310-none-win_amd64.whl
+pip install opencv-python
 ``` 
 
 ## 👏 Acknowledgement
