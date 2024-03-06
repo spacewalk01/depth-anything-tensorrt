@@ -21,7 +21,7 @@ The inference time includes the pre-preprocessing and post-processing stages:
 
 ## 🚀 Usage
 
-**Linux:**
+🐧 **Linux:**
 
 ``` shell
 # infer image
@@ -32,7 +32,7 @@ The inference time includes the pre-preprocessing and post-processing stages:
 ./depth-anything-tensorrt depth_anything_vitb14.engine test.mp4 # the video path
 ```
 
-**Windows:**
+🪟 **Windows:**
 
 ``` shell
 # infer image
