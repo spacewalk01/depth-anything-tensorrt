@@ -47,7 +47,7 @@ python trt_infer.py --engine <path to trt engine> --img <single-img> --outdir <o
 
 #### C++
 
-Refer to our [docs/INSTALL.md](https://github.com/spacewalk01/depth-anything-tensorrt/blob/main/docs/INSTALL.md) for detailed installation instructions.
+Refer to our [docs/INSTALL.md](https://github.com/spacewalk01/depth-anything-tensorrt/blob/main/docs/INSTALL.md) for C++ environment installation.
 
 #### Python
 
