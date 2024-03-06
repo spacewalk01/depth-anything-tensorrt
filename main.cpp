@@ -80,7 +80,7 @@ int main(int argc, char** argv)
     }
     // Assume it's a folder, add logic to handle folders
     // init model
-    cout << "loading model from " << engine_file_path << "..." << endl;
+    cout << "Loading model from " << engine_file_path << "..." << endl;
     DepthAnything depth_model(engine_file_path, logger);
     cout << "The model has been successfully loaded!" << endl;
 
