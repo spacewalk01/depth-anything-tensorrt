@@ -4,10 +4,9 @@
 Depth estimation is the task of measuring the distance of each pixel relative to the camera. This repo hosts a C++ and python implementation of the [Depth-Anything](https://github.com/LiheYoung/Depth-Anything) Monocular Depth Estimation model, leveraging the TensorRT API for efficient real-time inference.
 <p align="center" margin: 0 auto;>
   <img src="assets/davis_dolphins_result.gif" height="225px" width="800px" />
-  [video link](https://github.com/LiheYoung/Depth-Anything/tree/main/assets/examples_video)
 </p>
 
-
+<center>[video link]([http://example.com](https://github.com/LiheYoung/Depth-Anything/tree/main/assets/examples_video))</center>
 
 ## ⏱️ Performance
 
