@@ -17,7 +17,7 @@ The inference time includes the pre-preprocessing and post-processing stages:
 | RTX4090        | `Depth-Anything-L`  |518x518  |  1280x720    | 12     |
 
 > [!NOTE]  
-> Note that the inference was conducted using `FP16` precision, with a warm-up period of 10 frames, and the reported time corresponds to the last inference.
+> The inference was conducted using `FP16` precision, with a warm-up period of 10 frames, and the reported time corresponds to the last inference.
 
 ## 🚀 Usage
 
