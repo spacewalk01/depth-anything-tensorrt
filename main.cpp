@@ -147,7 +147,7 @@ int main(int argc, char** argv)
             //addWeighted(show_frame, 0.7, result_d, 0.3, 0.0, show_frame);
             cv::Mat result;
             cv::hconcat(result_d, show_frame, result);
-            cv::resize(result, result, cv::Size(1080, 720));
+            cv::resize(result, result, cv::Size(1080, 480));
             imshow("depth_result", result);
             cv::waitKey(1);
 
