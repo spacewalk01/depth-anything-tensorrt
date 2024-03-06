@@ -1,4 +1,4 @@
-## Installation for C++
+## Installation Guide for C++
 1. Download the pretrained [model](https://huggingface.co/spaces/LiheYoung/Depth-Anything/tree/main/checkpoints) and install [Depth-Anything](https://github.com/LiheYoung/Depth-Anything):
    ```bash
    git clone https://github.com/LiheYoung/Depth-Anything
