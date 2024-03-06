@@ -7,7 +7,7 @@ Depth estimation is the task of measuring the distance of each pixel relative to
 </p>
 
 <p align="center">
-  <a href="https://github.com/LiheYoung/Depth-Anything/tree/main/assets/examples_video">video link</a> |
+  <a href="https://github.com/LiheYoung/Depth-Anything/tree/main/assets/examples_video">video link</a> 
 </p>
 
 ## ⏱️ Performance
