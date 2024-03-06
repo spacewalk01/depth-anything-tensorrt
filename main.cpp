@@ -80,10 +80,9 @@ int main(int argc, char** argv)
     }
     // Assume it's a folder, add logic to handle folders
     // init model
-    cout << "loading model..." << endl;
+    cout << "loading model from " << engine_file_path << "..." << endl;
     DepthAnything depth_model(engine_file_path, logger);
-
-    cout << engine_file_path << " loaded!" << endl;
+    cout << "The model has been successfully loaded!" << endl;
 
     if (isVideo) {
         //path to video
@@ -111,7 +110,6 @@ int main(int argc, char** argv)
             cv::Mat result_d = depth_model.predict(frame);
             auto end = chrono::system_clock::now();
             cout << "Time of per frame: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << "ms" << endl;
-            //addWeighted(show_frame, 0.7, result_d, 0.3, 0.0, show_frame);
             cv::Mat result;
             cv::hconcat(result_d, show_frame, result);
             cv::resize(result, result, cv::Size(1080, 480));
@@ -144,7 +142,6 @@ int main(int argc, char** argv)
             cv::Mat result_d = depth_model.predict(frame);
             auto end = chrono::system_clock::now();
             cout << "Time of per frame: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << "ms" << endl;
-            //addWeighted(show_frame, 0.7, result_d, 0.3, 0.0, show_frame);
             cv::Mat result;
             cv::hconcat(result_d, show_frame, result);
             cv::resize(result, result, cv::Size(1080, 480));
