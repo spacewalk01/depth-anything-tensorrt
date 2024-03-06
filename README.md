@@ -34,11 +34,11 @@ Note that the inference was conducted using `FP16` precision, with a warm-up per
 
 ``` shell
 # infer image
-./depth-anything-tensorrt.exe depth_anything_vitb14.engine test.jpg
+depth-anything-tensorrt.exe depth_anything_vitb14.engine test.jpg
 # infer folder(images)
-./depth-anything-tensorrt.exe depth_anything_vitb14.engine data
+depth-anything-tensorrt.exe depth_anything_vitb14.engine data
 # infer video
-./depth-anything-tensorrt.exe depth_anything_vitb14.engine test.mp4 # the video path
+depth-anything-tensorrt.exe depth_anything_vitb14.engine test.mp4 # the video path
 ```
 
 ## 🛠️ Setup
