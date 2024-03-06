@@ -136,7 +136,7 @@ cv::Mat DepthAnything::predict(cv::Mat& image)
 
     // Create a colormap from the depth data
     cv::Mat colormap;
-    cv::applyColorMap(mask_mat, colormap, cv::COLORMAP_RAINBOW);
+    cv::applyColorMap(mask_mat, colormap, cv::COLORMAP_INFERNO);
 
     // Rescale the colormap
     int limX, limY;
