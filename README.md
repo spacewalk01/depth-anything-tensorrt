@@ -5,7 +5,9 @@ Depth estimation is the task of measuring the distance of each pixel relative to
 <p align="center" margin: 0 auto;>
   <img src="assets/davis_dolphins_result.gif" height="225px" width="800px" />
 </p>
+
 [video link](https://github.com/LiheYoung/Depth-Anything/tree/main/assets/examples_video)
+
 ## ⏱️ Performance
 
 The inference time includes the pre-preprocessing and post-processing stages:
