@@ -24,6 +24,8 @@ The inference time includes the pre-preprocessing and post-processing stages:
 #### C++
 
 ``` shell
+cd <this project path>/build/release
+
 # infer image
 depth-anything-tensorrt.exe depth_anything_vitb14.engine test.jpg
 # infer folder(images)
