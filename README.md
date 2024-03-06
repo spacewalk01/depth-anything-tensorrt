@@ -37,7 +37,9 @@ depth-anything-tensorrt.exe depth_anything_vitb14.engine test.mp4 # the video pa
 #### Python
 
 ```
-cd python
+cd depth-anything-tensorrt/python
+
+# infer image
 python trt_infer.py --engine <path to trt engine> --img <single-img> --outdir <outdir> [--grayscale]
 ```
 
