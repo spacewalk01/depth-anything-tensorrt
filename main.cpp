@@ -80,7 +80,10 @@ int main(int argc, char** argv)
     }
     // Assume it's a folder, add logic to handle folders
     // init model
+    cout << "loading model..." << endl;
     DepthAnything depth_model(engine_file_path, logger);
+
+    cout << engine_file_path << " loaded!" << endl;
 
     if (isVideo) {
         //path to video
@@ -111,10 +114,10 @@ int main(int argc, char** argv)
             //addWeighted(show_frame, 0.7, result_d, 0.3, 0.0, show_frame);
             cv::Mat result;
             cv::hconcat(result_d, show_frame, result);
-            cv::resize(result, result, cv::Size(1080, 720));
+            cv::resize(result, result, cv::Size(1080, 480));
             imshow("depth_result", result);
             output_video.write(result_d);
-            cv::waitKey(100);
+            cv::waitKey(1);
         }
 
         // Release resources
@@ -146,7 +149,7 @@ int main(int argc, char** argv)
             cv::hconcat(result_d, show_frame, result);
             cv::resize(result, result, cv::Size(1080, 720));
             imshow("depth_result", result);
-            cv::waitKey(100);
+            cv::waitKey(1);
 
             std::istringstream iss(imagePath);
             std::string token;
@@ -157,5 +160,7 @@ int main(int argc, char** argv)
             //std::cout << imageFolderPath_out + token << std::endl;
         }
     }
+
+    cout << "finished" << endl;
     return 0;
 }
