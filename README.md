@@ -39,9 +39,18 @@ cd python
 python trt_infer.py --engine <path to trt engine> --img <single-img> --outdir <outdir> [--grayscale]
 ```
 
-## 🛠️ Setup
+## 🛠️ Build
+
+#### C++
 
 Refer to our [docs/INSTALL.md](https://github.com/spacewalk01/depth-anything-tensorrt/blob/main/docs/INSTALL.md) for detailed installation instructions.
+
+#### Python
+
+``` shell
+cd depth-anything-tensorrt/python
+pip install -r requirements.txt
+``` 
 
 ## 👏 Acknowledgement
 
