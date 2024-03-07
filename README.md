@@ -20,9 +20,9 @@ Depth estimation is the task of measuring the distance of each pixel relative to
 The inference time includes the pre-preprocessing and post-processing stages:
 | Device          | Model | Model Input (WxH) |  Image Resolution (WxH)     | Inference Time(ms) |
 |:---------------:|:------------:|:------------:|:------------:|:------------:|
-| RTX4090        | `Depth-Anything-S`  |518x518  |  1280x720    | 3     |
-| RTX4090        | `Depth-Anything-B`  |518x518  |  1280x720    | 6     |
-| RTX4090        | `Depth-Anything-L`  |518x518  |  1280x720    | 12     |
+| RTX4090        | Depth-Anything-S  |518x518  |  1280x720    | 3     |
+| RTX4090        | Depth-Anything-B  |518x518  |  1280x720    | 6     |
+| RTX4090        | Depth-Anything-L  |518x518  |  1280x720    | 12     |
 
 > [!NOTE]  
 > The inference was conducted using `FP16` precision, with a warm-up period of 10 frames, and the reported time corresponds to the last inference.
