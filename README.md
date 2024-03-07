@@ -1,4 +1,3 @@
-
 <div align="center">
 
 Depth-Anything TensorRT
@@ -7,7 +6,6 @@ Depth-Anything TensorRT
 [![python](https://img.shields.io/badge/python-3.10.12-green)](https://www.python.org/downloads/release/python-31012/)
 [![cuda](https://img.shields.io/badge/cuda-11.6-green)](https://developer.nvidia.com/cuda-downloads)
 [![trt](https://img.shields.io/badge/TRT-8.6-green)](https://developer.nvidia.com/tensorrt)
-
 
 <div align="left">
 
