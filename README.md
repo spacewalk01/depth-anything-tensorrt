@@ -2,7 +2,8 @@
 <div align="center">
 
 Depth-Anything TensorRT
-<h4> A TensorRT Toolbox for Optimized Large Language Model Inference</h4>
+===========================
+<h4> A TensorRT Toolbox for Depth-Anything Model Inference</h4>
 
 [![python](https://img.shields.io/badge/python-3.10.12-green)](https://www.python.org/downloads/release/python-31012/)
 [![cuda](https://img.shields.io/badge/cuda-11.6-green)](https://developer.nvidia.com/cuda-downloads)
