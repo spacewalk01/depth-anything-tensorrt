@@ -12,11 +12,6 @@ Depth-Anything TensorRT
 
 ---
 <div align="left">
-  
-
-[![python](https://img.shields.io/badge/python-3.10.12-green)](https://www.python.org/downloads/release/python-31012/)
-[![cuda](https://img.shields.io/badge/cuda-12.2-green)](https://developer.nvidia.com/cuda-downloads)
-[![trt](https://img.shields.io/badge/TRT-9.2-green)](https://developer.nvidia.com/tensorrt)
 
 Depth estimation is the task of measuring the distance of each pixel relative to the camera. This repo contains implementations of the [Depth-Anything](https://github.com/LiheYoung/Depth-Anything) monocular depth estimation model in both C++ and Python. It utilizes the TensorRT API to enable efficient real-time inference.
 
