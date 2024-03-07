@@ -1,6 +1,6 @@
 <div align="center">
 
-Depth-Anything TensorRT
+Depth Anything TensorRT
 ===========================
 
 [![python](https://img.shields.io/badge/python-3.10.12-green)](https://www.python.org/downloads/release/python-31012/)
