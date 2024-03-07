@@ -9,7 +9,6 @@ Depth-Anything TensorRT
 [![trt](https://img.shields.io/badge/TRT-8.6-green)](https://developer.nvidia.com/tensorrt)
 
 
----
 <div align="left">
 
 Depth estimation is the task of measuring the distance of each pixel relative to the camera. This repo contains a TensorRT implementation of the [Depth-Anything](https://github.com/LiheYoung/Depth-Anything) depth estimation model in both C++ and Python for efficent real-time inference.
