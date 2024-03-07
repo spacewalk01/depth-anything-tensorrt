@@ -37,6 +37,34 @@ bool IsFile(const std::string& path) {
 #endif
 }
 
+bool createFolder(const std::string& folderPath) {
+#ifdef _WIN32
+    if (!CreateDirectory(folderPath.c_str(), NULL)) {
+        DWORD error = GetLastError();
+        if (error == ERROR_ALREADY_EXISTS) {
+            std::cout << "Folder already exists!" << std::endl;
+            return true; // Folder already exists
+        }
+        else {
+            std::cerr << "Failed to create folder! Error code: " << error << std::endl;
+            return false; // Failed to create folder
+        }
+    }
+#else
+    if (mkdir(folderPath.c_str(), 0777) != 0) {
+        if (errno == EEXIST) {
+            std::cout << "Folder already exists!" << std::endl;
+            return true; // Folder already exists
+        }
+        else {
+            std::cerr << "Failed to create folder! Error code: " << errno << std::endl;
+            return false; // Failed to create folder
+        }
+    }
+#endif
+    std::cout << "Folder created successfully!" << std::endl;
+    return true; // Folder created successfully
+}
 
 /**
  * @brief Setting up Tensorrt logger
@@ -125,7 +153,8 @@ int main(int argc, char** argv)
     }
     else {
         // path to folder saves images
-        string imageFolderPath_out = "out_dir/";
+        string imageFolderPath_out = "results/";
+        createFolder(imageFolderPath_out);
         for (const auto& imagePath : imagePathList)
         {
             // open image
@@ -153,8 +182,7 @@ int main(int argc, char** argv)
             while (std::getline(iss, token, '/'))
             {
             }
-            cv::imwrite(imageFolderPath_out + token, result);
-            //std::cout << imageFolderPath_out + token << std::endl;
+            cv::imwrite(imageFolderPath_out + token, result_d);
         }
     }
 
