@@ -9,7 +9,7 @@ Depth-Anything TensorRT
 
 <div align="left">
 
-Depth estimation is the task of measuring the distance of each pixel relative to the camera. This repo provides a TensorRT implementation of the [Depth-Anything](https://github.com/LiheYoung/Depth-Anything) depth estimation model in both C++ and Python, enabling efficient real-time inference
+Depth estimation is the task of measuring the distance of each pixel relative to the camera. This repo provides a TensorRT implementation of the [Depth-Anything](https://github.com/LiheYoung/Depth-Anything) depth estimation model in both C++ and Python, enabling efficient real-time inference.
 
 <p align="center">
   <img src="assets/davis_dolphins_result.gif" height="225px" width="720px" />
@@ -18,7 +18,7 @@ Depth estimation is the task of measuring the distance of each pixel relative to
 ## ⏱️ Performance
 
 The inference time includes the pre-preprocessing and post-processing stages:
-| Device          | Model | Model Input (WxH) |  Image Resolution (WxH)     | Inference Time(ms) |
+| Device          | Model | Model Input (WxH) |  Image Resolution (WxH)|Inference Time(ms)|
 |:---------------:|:------------:|:------------:|:------------:|:------------:|
 | RTX4090        | Depth-Anything-S  |518x518  |  1280x720    | 3     |
 | RTX4090        | Depth-Anything-B  |518x518  |  1280x720    | 6     |
