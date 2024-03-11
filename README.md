@@ -70,6 +70,8 @@ pip install opencv-python
 
 ## 🤖 Model Preparation
 
+Perform the following steps to create an onnx model:
+
 1. Download the pretrained [model](https://huggingface.co/spaces/LiheYoung/Depth-Anything/tree/main/checkpoints) and install [Depth-Anything](https://github.com/LiheYoung/Depth-Anything):
    ``` shell
    git clone https://github.com/LiheYoung/Depth-Anything
