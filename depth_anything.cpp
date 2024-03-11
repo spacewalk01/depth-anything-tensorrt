@@ -8,7 +8,7 @@ float DepthAnything::input_w = 518;
 int DepthAnything::num_classes = 3;
 float DepthAnything::mean[3] = { 123.675, 116.28, 103.53 };
 float DepthAnything::std[3] = { 58.395, 57.12, 57.375 };
-
+bool isFP16 = true;
 using namespace nvinfer1;
 
 /**
@@ -42,7 +42,7 @@ DepthAnything::DepthAnything(std::string model_path, nvinfer1::ILogger& logger)
     // Build an engine from an onnx model
     else
     {
-        build(model_path, logger, true);
+        build(model_path, logger);
         saveEngine(model_path);
     }
 
@@ -171,7 +171,7 @@ cv::Mat DepthAnything::predict(cv::Mat& image)
 }
 
 
-void DepthAnything::build(std::string onnxPath, nvinfer1::ILogger& logger, bool isFP16)
+void DepthAnything::build(std::string onnxPath, nvinfer1::ILogger& logger)
 {
     auto builder = createInferBuilder(logger);
 
