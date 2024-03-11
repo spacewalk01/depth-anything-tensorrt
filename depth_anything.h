@@ -7,10 +7,7 @@
 #include <algorithm>
 #include <opencv2/opencv.hpp>
 #include <NvInfer.h>
-
 #include "utils.h"
-
-
 
 class DepthAnything
 {
@@ -38,6 +35,6 @@ private:
 
 	std::vector<float> preprocess(cv::Mat& image);
 	std::vector<DepthEstimation> postprocess(std::vector<int> mask, int img_w, int img_h);
-	void build(std::string onnxPath, nvinfer1::ILogger& logger, bool isFP16);
+	void build(std::string onnxPath, nvinfer1::ILogger& logger);
 	bool saveEngine(const std::string& filename);
 };
