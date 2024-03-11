@@ -1,11 +1,15 @@
 #include "depth_anything.h"
 
+#include <NvOnnxParser.h>
+
 // set network params
 float DepthAnything::input_h = 518;
 float DepthAnything::input_w = 518;
 int DepthAnything::num_classes = 3;
 float DepthAnything::mean[3] = { 123.675, 116.28, 103.53 };
 float DepthAnything::std[3] = { 58.395, 57.12, 57.375 };
+
+using namespace nvinfer1;
 
 /**
  * @brief DepthAnything`s constructor
@@ -14,22 +18,33 @@ float DepthAnything::std[3] = { 58.395, 57.12, 57.375 };
 */
 DepthAnything::DepthAnything(std::string model_path, nvinfer1::ILogger& logger)
 {
-    // read the engine file
-    std::ifstream engineStream(model_path, std::ios::binary);
-    engineStream.seekg(0, std::ios::end);
-    const size_t modelSize = engineStream.tellg();
-    engineStream.seekg(0, std::ios::beg);
-    std::unique_ptr<char[]> engineData(new char[modelSize]);
-    engineStream.read(engineData.get(), modelSize);
-    engineStream.close();
 
-    // create tensorrt model
-    runtime = nvinfer1::createInferRuntime(logger);
-    engine = runtime->deserializeCudaEngine(engineData.get(), modelSize);
-    context = engine->createExecutionContext();
+    // Deserialize an engine
+    if (model_path.find(".onnx") == std::string::npos)
+    {
+        // read the engine file
+        std::ifstream engineStream(model_path, std::ios::binary);
+        engineStream.seekg(0, std::ios::end);
+        const size_t modelSize = engineStream.tellg();
+        engineStream.seekg(0, std::ios::beg);
+        std::unique_ptr<char[]> engineData(new char[modelSize]);
+        engineStream.read(engineData.get(), modelSize);
+        engineStream.close();
 
-    // Define input dimensions
-    context->setBindingDimensions(0, nvinfer1::Dims4(1, 3, input_h, input_w));
+        // create tensorrt model
+        runtime = nvinfer1::createInferRuntime(logger);
+        engine = runtime->deserializeCudaEngine(engineData.get(), modelSize);
+        context = engine->createExecutionContext();
+
+        // Define input dimensions
+        context->setBindingDimensions(0, nvinfer1::Dims4(1, 3, input_h, input_w));
+    }
+    // Build an engine from an onnx model
+    else
+    {
+        build(model_path, logger, true);
+        saveEngine(model_path);
+    }
 
     // create CUDA stream
     cudaStreamCreate(&stream);
@@ -153,4 +168,69 @@ cv::Mat DepthAnything::predict(cv::Mat& image)
     cv::resize(colormap, colormap, cv::Size(img_w, img_h));
 
     return colormap;
+}
+
+
+void DepthAnything::build(std::string onnxPath, nvinfer1::ILogger& logger, bool isFP16)
+{
+    auto builder = createInferBuilder(logger);
+
+    const auto explicitBatch = 1U << static_cast<uint32_t>(NetworkDefinitionCreationFlag::kEXPLICIT_BATCH);
+    INetworkDefinition* network = builder->createNetworkV2(explicitBatch);
+
+    IBuilderConfig* config = builder->createBuilderConfig();
+
+    if (isFP16)
+    {
+        config->setFlag(BuilderFlag::kFP16);
+    }
+
+    nvonnxparser::IParser* parser = nvonnxparser::createParser(*network, logger);
+
+    bool parsed = parser->parseFromFile(onnxPath.c_str(), static_cast<int>(nvinfer1::ILogger::Severity::kINFO));
+
+    IHostMemory* plan{ builder->buildSerializedNetwork(*network, *config) };
+
+    runtime = createInferRuntime(logger);
+
+    engine = runtime->deserializeCudaEngine(plan->data(), plan->size(), nullptr);
+
+    context = engine->createExecutionContext();
+
+    delete network;
+    delete config;
+    delete parser;
+    delete plan;
+}
+
+bool DepthAnything::saveEngine(const std::string& onnxpath)
+{
+    // Create an engine path from onnx path
+    std::string engine_path;
+    size_t dotPos = onnxpath.find_last_of(".");    
+    if (dotPos != std::string::npos) {
+        engine_path = onnxpath.substr(dotPos + 1);
+    }
+    else
+    {
+        return false;
+    }
+
+    // Save the engine to the path
+    if (engine)
+    {
+        nvinfer1::IHostMemory* data = engine->serialize();
+        std::ofstream file;
+        file.open(engine_path, std::ios::binary | std::ios::out);
+        if (!file.is_open())
+        {
+            std::cout << "Create engine file" << engine_path << " failed" << std::endl;
+            return 0;
+        }
+        file.write((const char*)data->data(), data->size());
+        file.close();
+
+        delete data;
+    }
+    return true;
 }
