@@ -19,7 +19,7 @@ public:
 	void show();
 	cv::Mat predict(cv::Mat& image);
 	~DepthAnything();
-
+	
 private:
 	static float input_w;
 	static float input_h;
@@ -38,4 +38,6 @@ private:
 
 	std::vector<float> preprocess(cv::Mat& image);
 	std::vector<DepthEstimation> postprocess(std::vector<int> mask, int img_w, int img_h);
+	void build(std::string onnxPath, nvinfer1::ILogger& logger, bool isFP16);
+	bool saveEngine(const std::string& filename);
 };
