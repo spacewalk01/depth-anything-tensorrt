@@ -32,10 +32,17 @@ The inference time includes the pre-preprocessing and post-processing stages:
 
 #### C++
 
+- Usage 1: Create an engine and save it
 ``` shell
-Usage: depth-anything-tensorrt.exe <engine or onnx model> <input image or video>
+Usage: depth-anything-tensorrt.exe <onnx model> <input image or video>
+```
+- Usage 2: Deserialize an engine and run it
+``` shell
+Usage: depth-anything-tensorrt.exe <onnx model> <input image or video>
+```
 
 Example:
+``` shell
 # infer image
 depth-anything-tensorrt.exe depth_anything_vitb14.engine test.jpg
 # infer folder(images)
