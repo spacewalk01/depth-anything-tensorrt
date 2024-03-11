@@ -29,7 +29,7 @@ The inference time includes the pre-preprocessing and post-processing stages:
 > The inference was conducted using `FP16` precision, with a warm-up period of 10 frames, and the reported time corresponds to the last inference.
 
 
-## 🚀 Usage
+## 🚀 Quick Start
 
 #### C++
 
