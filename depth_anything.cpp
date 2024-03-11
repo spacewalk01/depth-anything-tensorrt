@@ -18,7 +18,6 @@ using namespace nvinfer1;
 */
 DepthAnything::DepthAnything(std::string model_path, nvinfer1::ILogger& logger)
 {
-
     // Deserialize an engine
     if (model_path.find(".onnx") == std::string::npos)
     {
