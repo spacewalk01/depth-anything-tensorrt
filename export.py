@@ -57,7 +57,7 @@ def main():
     parser.add_argument("--image_shape", type=int, nargs=3, metavar=("channels", "height", "width"), help="Shape of the input image")
     args = parser.parse_args()
 
-    onnx_model_path = export_model(args.encoder, args.load_from, tuple(args.image_shape))
+    export_model(args.encoder, args.load_from, tuple(args.image_shape))
 
 if __name__ == "__main__":
     main()
