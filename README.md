@@ -34,8 +34,9 @@ The inference time includes the pre-preprocessing and post-processing stages:
 #### C++
 
 ``` shell
-cd depth-anything-tensorrt/build/release
+Usage: depth-anything-tensorrt.exe <engine or onnx model> <input image or video>
 
+Example:
 # infer image
 depth-anything-tensorrt.exe depth_anything_vitb14.engine test.jpg
 # infer folder(images)
