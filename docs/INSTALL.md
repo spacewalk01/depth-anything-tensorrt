@@ -1,14 +1,6 @@
 ## Installation Guide for C++
-1. Download the pretrained [model](https://huggingface.co/spaces/LiheYoung/Depth-Anything/tree/main/checkpoints) and install [Depth-Anything](https://github.com/LiheYoung/Depth-Anything):
-   ```bash
-   git clone https://github.com/LiheYoung/Depth-Anything
-   cd Depth-Anything
-   pip install -r requirements.txt
-   ```
 
-2. Copy and paste `dpt.py` in this repo to `<depth_anything_installpath>/depth_anything` folder. Note that I've only removed a squeeze operation at the end of model's forward function in `dpt.py` to avoid conflicts with TensorRT.
-3. Export the model to onnx format using `export_to_onnx.py`. You will get an onnx file named `depth_anything_vit{}14.onnx`, such as `depth_anything_vitb14.onnx`.
-4. Install TensorRT using TensorRT official guidance.
+1. Install TensorRT using TensorRT official guidance.
 
     <details>
     <summary>Click here for Windows guide</summary>     
@@ -24,19 +16,9 @@
 
     [Click here for installing tensorrt on Linux](https://github.com/wang-xinyu/tensorrtx/blob/master/tutorials/install.md). 
 
-6. Find **trtexec** and then export onnx to engine.
-   ```
-   trtexec --onnx=depth_anything_vitb14.onnx --saveEngine=depth_anything_vitb14.engine
-   ```
-
-   Add **--fp16** if you want to enable fp16 precision
-   ```
-   trtexec --onnx=depth_anything_vitb14.onnx --saveEngine=depth_anything_vitb14.engine --fp16
-   ```
-
-7. Download and install any recent [OpenCV](https://opencv.org/releases/) for Windows.
+2. Download and install any recent [OpenCV](https://opencv.org/releases/) for Windows.
     
-8. Modify TensorRT and OpenCV paths in CMakelists.txt:
+3. Modify TensorRT and OpenCV paths in CMakelists.txt:
    ```
    # Find and include OpenCV
    set(OpenCV_DIR "your path to OpenCV")
@@ -47,8 +29,7 @@
    set(TENSORRT_DIR "your path to TensorRT")
    ```
   
-
-9. Build project by using the following commands or  **cmake-gui**(Windows).
+4. Build project by using the following commands or  **cmake-gui**(Windows).
 
     1. Windows:
     ```bash
