@@ -47,6 +47,9 @@ DepthAnything::DepthAnything(std::string model_path, nvinfer1::ILogger& logger)
 
     // create CUDA stream
     cudaStreamCreate(&stream);
+
+    cudaMalloc(&buffer[0], 3 * input_h * input_w * sizeof(float));
+    cudaMalloc(&buffer[1], input_h * input_w * sizeof(int));
 }
 
 /**
@@ -120,8 +123,6 @@ cv::Mat DepthAnything::predict(cv::Mat& image)
 
     // Preprocessing
     std::vector<float> input = preprocess(clone_image);
-    cudaMalloc(&buffer[0], 3 * input_h * input_w * sizeof(float));
-    cudaMalloc(&buffer[1], input_h * input_w * sizeof(int));
     cudaMemcpyAsync(buffer[0], input.data(), 3 * input_h * input_w * sizeof(float), cudaMemcpyHostToDevice, stream);
 
     // Inference depth model
@@ -131,9 +132,6 @@ cv::Mat DepthAnything::predict(cv::Mat& image)
     // Postprocessing
     std::vector<int> depth_data(input_h * input_w);
     cudaMemcpyAsync(depth_data.data(), buffer[1], input_h * input_w * sizeof(int), cudaMemcpyDeviceToHost);
-
-    cudaFree(buffer[0]);
-    cudaFree(buffer[1]);
 
     // Convert the entire depth_data vector to a CV_32FC1 Mat
     cv::Mat mask_mat(input_h, input_w, CV_32FC1);
