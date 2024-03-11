@@ -173,27 +173,19 @@ cv::Mat DepthAnything::predict(cv::Mat& image)
 void DepthAnything::build(std::string onnxPath, nvinfer1::ILogger& logger)
 {
     auto builder = createInferBuilder(logger);
-
     const auto explicitBatch = 1U << static_cast<uint32_t>(NetworkDefinitionCreationFlag::kEXPLICIT_BATCH);
     INetworkDefinition* network = builder->createNetworkV2(explicitBatch);
-
     IBuilderConfig* config = builder->createBuilderConfig();
-
     if (isFP16)
     {
         config->setFlag(BuilderFlag::kFP16);
     }
-
     nvonnxparser::IParser* parser = nvonnxparser::createParser(*network, logger);
-
     bool parsed = parser->parseFromFile(onnxPath.c_str(), static_cast<int>(nvinfer1::ILogger::Severity::kINFO));
-
     IHostMemory* plan{ builder->buildSerializedNetwork(*network, *config) };
 
     runtime = createInferRuntime(logger);
-
     engine = runtime->deserializeCudaEngine(plan->data(), plan->size(), nullptr);
-
     context = engine->createExecutionContext();
 
     delete network;
