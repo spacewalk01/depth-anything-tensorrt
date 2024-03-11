@@ -207,9 +207,9 @@ bool DepthAnything::saveEngine(const std::string& onnxpath)
 {
     // Create an engine path from onnx path
     std::string engine_path;
-    size_t dotPos = onnxpath.find_last_of(".");    
-    if (dotPos != std::string::npos) {
-        engine_path = onnxpath.substr(dotPos + 1);
+    size_t dotIndex = onnxpath.find_last_of(".");
+    if (dotIndex != std::string::npos) {
+        engine_path = onnxpath.substr(0, dotIndex) + ".engine";
     }
     else
     {
