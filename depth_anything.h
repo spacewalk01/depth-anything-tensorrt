@@ -29,6 +29,7 @@ private:
 	nvinfer1::IExecutionContext* context;
 
 	void* buffer[2];
+	float* depth_data;
 	cudaStream_t stream;
 
 	std::vector<float> preprocess(cv::Mat& image);
