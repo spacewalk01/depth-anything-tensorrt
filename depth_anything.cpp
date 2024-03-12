@@ -46,6 +46,8 @@ DepthAnything::DepthAnything(std::string model_path, nvinfer1::ILogger& logger)
 
     cudaMalloc(&buffer[0], 3 * input_h * input_w * sizeof(float));
     cudaMalloc(&buffer[1], input_h * input_w * sizeof(float));
+
+    depth_data = new float[input_h * input_w];
 }
 
 /**
@@ -56,6 +58,8 @@ DepthAnything::~DepthAnything()
     cudaFree(stream);
     cudaFree(buffer[0]);
     cudaFree(buffer[1]);
+
+    delete[] depth_data;
 }
 
 /**
@@ -98,11 +102,10 @@ cv::Mat DepthAnything::predict(cv::Mat& image)
     cudaStreamSynchronize(stream);
 
     // Postprocessing
-    std::vector<float> depth_data(input_h * input_w);
-    cudaMemcpyAsync(depth_data.data(), buffer[1], input_h * input_w * sizeof(float), cudaMemcpyDeviceToHost);
+    cudaMemcpyAsync(depth_data, buffer[1], input_h * input_w * sizeof(float), cudaMemcpyDeviceToHost);
 
     // Convert the entire depth_data vector to a CV_32FC1 Mat
-    cv::Mat depth_mat(input_h, input_w, CV_32FC1, depth_data.data());
+    cv::Mat depth_mat(input_h, input_w, CV_32FC1, depth_data);
     cv::normalize(depth_mat, depth_mat, 0, 255, cv::NORM_MINMAX, CV_8U);
 
     // Create a colormap from the depth data
