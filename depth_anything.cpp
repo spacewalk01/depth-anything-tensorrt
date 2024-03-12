@@ -44,10 +44,10 @@ DepthAnything::DepthAnything(std::string model_path, nvinfer1::ILogger& logger)
     // create CUDA stream
     cudaStreamCreate(&stream);
 
-    cudaMalloc(&buffer[0], static_cast<int>(3 * input_h * input_w * sizeof(float)));
-    cudaMalloc(&buffer[1], static_cast<int>(input_h * input_w * sizeof(float)));
+    cudaMalloc(&buffer[0], 3 * input_h * input_w * sizeof(float));
+    cudaMalloc(&buffer[1], input_h * input_w * sizeof(float));
 
-    depth_data = new float[static_cast<int>(input_h * input_w)];
+    depth_data = new float[input_h * input_w];
 }
 
 /**
