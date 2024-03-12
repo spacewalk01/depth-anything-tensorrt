@@ -13,16 +13,14 @@ class DepthAnything
 {
 public:
 	DepthAnything(std::string model_path, nvinfer1::ILogger& logger);
-	void show();
 	cv::Mat predict(cv::Mat& image);
 	~DepthAnything();
 	
 private:
-	static float input_w;
-	static float input_h;
-	static float mean[3];
-	static float std[3];
-	static int num_classes;
+	float input_w = 518;
+	float input_h = 518;
+	float mean[3] = { 123.675, 116.28, 103.53 };
+	float std[3] = { 58.395, 57.12, 57.375 };
 
 	std::vector<int> offset;
 
