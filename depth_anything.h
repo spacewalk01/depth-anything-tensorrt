@@ -17,8 +17,8 @@ public:
 	~DepthAnything();
 	
 private:
-	float input_w = 518;
-	float input_h = 518;
+	int input_w = 518;
+	int input_h = 518;
 	float mean[3] = { 123.675, 116.28, 103.53 };
 	float std[3] = { 58.395, 57.12, 57.375 };
 
