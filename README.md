@@ -102,6 +102,8 @@ Perform the following steps to create an onnx model:
   > [!TIP]
   > The width and height of the model input should be divisible by 14, the patch height.
 
+4. Finally, copy the opencv dll files such as `opencv_world490.dll` and `opencv_videoio_ffmpeg490_64.dll` into the `<depth_anything_installpath>/build/Release` folder.
+
 ## 👏 Acknowledgement
 
 This project is based on the following projects:
