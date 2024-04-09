@@ -91,6 +91,7 @@ Perform the following steps to create an onnx model:
 3. Export the model to onnx format using [export.py](https://github.com/spacewalk01/depth-anything-tensorrt/blob/main/export.py). You will get an onnx file named `depth_anything_vit{}14.onnx`, such as `depth_anything_vitb14.onnx`.
     
     ``` shell
+    # Used torch cpu version
     conda create -n depth-anything python=3.8
     conda activate depth-anything
     pip install torch torchvision
