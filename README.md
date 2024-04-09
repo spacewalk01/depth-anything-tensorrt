@@ -88,7 +88,7 @@ Perform the following steps to create an onnx model:
    ```
 
 2. Copy and paste [dpt.py](https://github.com/spacewalk01/depth-anything-tensorrt/blob/main/dpt.py) in this repo to `<depth_anything_installpath>/depth_anything` folder. Then, copy [export.py](https://github.com/spacewalk01/depth-anything-tensorrt/blob/main/export.py) in this repo to `<depth_anything_installpath>`. Note that I've only removed a squeeze operation at the end of model's forward function in `dpt.py` to avoid conflicts with TensorRT.
-3. Export the model to onnx format using [export.py](https://github.com/spacewalk01/depth-anything-tensorrt/blob/main/export.py). You will get an onnx file named `depth_anything_vit{}14.onnx`, such as `depth_anything_vitb14.onnx`. Note that I used torch cpu version for exporting the onnx model as it is necessary to deploy the model on GPU for model exporting.
+3. Export the model to onnx format using [export.py](https://github.com/spacewalk01/depth-anything-tensorrt/blob/main/export.py). You will get an onnx file named `depth_anything_vit{}14.onnx`, such as `depth_anything_vitb14.onnx`. Note that I used torch cpu version for exporting the onnx model as it is not necessary to deploy the model on GPU when exporting.
 
     
     ``` shell
