@@ -114,7 +114,7 @@ Perform the following steps to create an onnx model:
 
 1. Download the pretrained [model](https://huggingface.co/spaces/LiheYoung/Depth-Anything/tree/main/checkpoints) and install [Depth-Anything](https://github.com/LiheYoung/Depth-Anything):
    ``` shell
-   git clone https://github.com/LiheYoung/Depth-Anything-v2
+   git clone https://huggingface.co/spaces/depth-anything/Depth-Anything-V2/tree/main/depth_anything_v2
    cd Depth-Anything-v2
    pip install -r requirements.txt
    ```
