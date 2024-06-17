@@ -15,6 +15,12 @@ Depth estimation is the task of measuring the distance of each pixel relative to
 <p align="center">
   <img src="assets/davis_dolphins_result.gif" height="225px" width="720px" />
 </p>
+<p align="center">
+  # Depth-Anything-V2
+  <img src="assets/ferris_wheel_result.gif" height="225px" width="720px" />
+</p>
+
+
 
 ## News
 
