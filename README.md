@@ -99,7 +99,7 @@ Perform the following steps to create an onnx model:
    pip install -r requirements.txt
    ```
 
-2. Copy and paste [dpt.py](https://github.com/spacewalk01/depth-anything-tensorrt/blob/main/dpt.py) in this repo to `<depth_anything_installpath>/depth_anything` folder. Then, copy [export.py](https://github.com/spacewalk01/depth-anything-tensorrt/blob/main/export.py) in this repo to `<depth_anything_installpath>`. Note that I've only removed a squeeze operation at the end of model's forward function in `dpt.py` to avoid conflicts with TensorRT.
+2. Copy and paste all files in depth-anything_v1 to `<depth_anything_installpath>/depth_anything` folder. Note that I've only removed a squeeze operation at the end of model's forward function in `dpt.py` to avoid conflicts with TensorRT.
 3. Export the model to onnx format using [export.py](https://github.com/spacewalk01/depth-anything-tensorrt/blob/main/export.py). You will get an onnx file named `depth_anything_vit{}14.onnx`, such as `depth_anything_vitb14.onnx`. Note that I used torch cpu version for exporting the onnx model as it is not necessary to deploy the model on GPU when exporting.
 
     
@@ -126,7 +126,8 @@ Perform the following steps to create an onnx model:
    pip install -r requirements.txt
    ```
 2. Download the pretrained models from the [readme](https://huggingface.co/spaces/depth-anything/Depth-Anything-V2/blob/main/README_Github.md) and put them in checkpoints folder:
-3. Run the following to export the model:
+3. Copy and paste all files in depth-anything_v2 to `<depth_anything_installpath>/depth_anything_v2` folder. 
+4. Run the following to export the model:
     ``` shell
     conda create -n depth-anything python=3.8
     conda activate depth-anything
