@@ -119,13 +119,14 @@ Perform the following steps to create an onnx model:
 
 ### Depth-Anything-V2
 
-1. Clone [Depth-Anything-V2](https://huggingface.co/spaces/depth-anything/Depth-Anything-V2/tree/main) and download the pretrained models from the [readme](https://huggingface.co/spaces/depth-anything/Depth-Anything-V2/blob/main/README_Github.md):
+1. Clone [Depth-Anything-V2](https://huggingface.co/spaces/depth-anything/Depth-Anything-V2/tree/main) 
    ``` shell
    git clone https://huggingface.co/spaces/depth-anything/Depth-Anything-V2/tree/main/depth_anything_v2
    cd Depth-Anything-v2
    pip install -r requirements.txt
    ```
-
+2. Download the pretrained models from the [readme](https://huggingface.co/spaces/depth-anything/Depth-Anything-V2/blob/main/README_Github.md) and put them in checkpoints folder:
+3. Run the following to export the model:
     ``` shell
     conda create -n depth-anything python=3.8
     conda activate depth-anything
