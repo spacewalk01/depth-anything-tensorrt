@@ -126,7 +126,7 @@ Perform the following steps to create an onnx model:
    pip install -r requirements.txt
    ```
 2. Download the pretrained models from the [readme](https://huggingface.co/spaces/depth-anything/Depth-Anything-V2/blob/main/README_Github.md) and put them in checkpoints folder:
-3. Copy and paste all files in depth-anything_v2 to `<depth_anything_installpath>/depth_anything_v2` folder. 
+3. Copy and paste all files in depth_anything_v2 to `<depth_anything_installpath>/depth_anything_v2` folder. 
 4. Run the following to export the model:
     ``` shell
     conda create -n depth-anything python=3.8
