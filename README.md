@@ -82,7 +82,7 @@ pip install opencv-python
 ``` 
 
 ## 🤖 Model Preparation
-### Depth-Anything-v1
+### Depth-Anything-V1
 Perform the following steps to create an onnx model:
 
 1. Download the pretrained [model](https://huggingface.co/spaces/LiheYoung/Depth-Anything/tree/main/checkpoints) and install [Depth-Anything](https://github.com/LiheYoung/Depth-Anything):
@@ -110,9 +110,9 @@ Perform the following steps to create an onnx model:
   > [!TIP]
   > The width and height of the model input should be divisible by 14, the patch height.
 
-### Depth-Anything-v2
+### Depth-Anything-V2
 
-1. Download the pretrained [model](https://huggingface.co/spaces/LiheYoung/Depth-Anything/tree/main/checkpoints) and install [Depth-Anything](https://github.com/LiheYoung/Depth-Anything):
+1. Download the pretrained [model](https://huggingface.co/spaces/LiheYoung/Depth-Anything/tree/main/checkpoints) and install [Depth-Anything-V2](https://huggingface.co/spaces/depth-anything/Depth-Anything-V2/tree/main):
    ``` shell
    git clone https://huggingface.co/spaces/depth-anything/Depth-Anything-V2/tree/main/depth_anything_v2
    cd Depth-Anything-v2
