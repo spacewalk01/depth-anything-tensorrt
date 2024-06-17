@@ -109,7 +109,7 @@ Perform the following steps to create an onnx model:
     pip install torch torchvision
     pip install opencv-python
     pip install onnx
-    python export.py --encoder vitb --load_from depth_anything_vitb14.pth --image_shape 3 518 518
+    python export_v1.py --encoder vitb --load_from depth_anything_vitb14.pth --image_shape 3 518 518
     ```
 
 4. Finally, copy the opencv dll files such as `opencv_world490.dll` and `opencv_videoio_ffmpeg490_64.dll` into the `<depth_anything_installpath>/build/Release` folder.
