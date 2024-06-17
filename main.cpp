@@ -139,7 +139,7 @@ int main(int argc, char** argv)
             auto end = chrono::system_clock::now();
             cout << "Time of per frame: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << "ms" << endl;
             cv::Mat result;
-            cv::hconcat(result_d, show_frame, result);
+            cv::hconcat(show_frame, result_d, result);
             cv::resize(result, result, cv::Size(1080, 480));
             imshow("depth_result", result);
             output_video.write(result_d);
