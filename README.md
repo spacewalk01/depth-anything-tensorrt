@@ -16,6 +16,11 @@ Depth estimation is the task of measuring the distance of each pixel relative to
   <img src="assets/davis_dolphins_result.gif" height="225px" width="720px" />
 </p>
 
+## News
+
+* **2024-06-17:** [Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2) is integrated.
+* **2024-01-23:** Depth Anything [TensorRT](https://github.com/spacewalk01/depth-anything-tensorrt) version is created.
+  
 ## ⏱️ Performance
 
 The inference time includes the pre-preprocessing and post-processing stages:
