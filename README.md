@@ -112,8 +112,6 @@ Perform the following steps to create an onnx model:
     python export_v1.py --encoder vitb --load_from depth_anything_vitb14.pth --image_shape 3 518 518
     ```
 
-  > [!TIP]
-  > The width and height of the model input should be divisible by 14, the patch height.
 
 ### Depth-Anything-V2
 
@@ -134,6 +132,9 @@ Perform the following steps to create an onnx model:
     pip install onnx
     python export_v2.py --encoder vitb --input-size 518
     ```
+
+> [!TIP]
+> The width and height of the model input should be divisible by 14, the patch height.
     
 ## 👏 Acknowledgement
 
