@@ -16,8 +16,7 @@
 
     [Click here for installing tensorrt on Linux](https://github.com/wang-xinyu/tensorrtx/blob/master/tutorials/install.md). 
 
-2. Download and install any recent [OpenCV](https://opencv.org/releases/) for Windows.
-    
+2. Download and install any recent [OpenCV](https://opencv.org/releases/) for Windows. 
 3. Modify TensorRT and OpenCV paths in CMakelists.txt:
    ```
    # Find and include OpenCV
@@ -46,6 +45,9 @@
     cmake ..
     make
     ```
+
+5. Finally, copy the opencv dll files such as `opencv_world490.dll` and `opencv_videoio_ffmpeg490_64.dll` into the `<depth_anything_installpath>/build/Release` folder.
+    
 
 ## Tested Environment
    - TensorRT 8.6
