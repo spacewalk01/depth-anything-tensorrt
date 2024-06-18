@@ -117,7 +117,7 @@ Perform the following steps to create an onnx model:
 
 1. Clone [Depth-Anything-V2](https://huggingface.co/spaces/depth-anything/Depth-Anything-V2/tree/main) 
    ``` shell
-   git clone https://huggingface.co/spaces/depth-anything/Depth-Anything-V2/tree/main/depth_anything_v2
+   git clone https://huggingface.co/spaces/depth-anything/Depth-Anything-V2
    cd Depth-Anything-v2
    pip install -r requirements.txt
    ```
