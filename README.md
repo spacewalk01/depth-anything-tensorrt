@@ -24,9 +24,9 @@ Depth estimation is the task of measuring the distance of each pixel relative to
 
 
 ## News
-
-* **2024-06-17:** [Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2) is integrated.
-* **2024-01-23:** Depth Anything [TensorRT](https://github.com/spacewalk01/depth-anything-tensorrt) version is created.
+* **2024-06-20:** Added support for tensorrt 10.
+* **2024-06-17:** [Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2) has been integrated.
+* **2024-01-23:** The Depth Anything [TensorRT](https://github.com/spacewalk01/depth-anything-tensorrt) version has been created.
   
 ## ⏱️ Performance
 
