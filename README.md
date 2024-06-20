@@ -135,7 +135,17 @@ Perform the following steps to create an onnx model:
 
 > [!TIP]
 > The width and height of the model input should be divisible by 14, the patch height.
-    
+
+## 🌿 Results
+
+
+| Image 1 | Image 2 |
+|---------|---------|
+| ![Alt text for image 1](assets/demo02.jpg) | ![Alt text for image 2](assets/demo09.jpg) |
+| Image 3 | Image 4 |
+|---------|---------|
+| ![Alt text for image 3](assets/demo07.jpg) |  |
+
 ## 👏 Acknowledgement
 
 This project is based on the following projects:
