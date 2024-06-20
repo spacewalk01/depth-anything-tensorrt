@@ -3,10 +3,6 @@
 
 #define isFP16 true
 
-
-
-
-
 using namespace nvinfer1;
 
 /**
