@@ -40,10 +40,18 @@ file(STRINGS "${TENSORRT_DIR}/include/NvInferVersion.h" tensorrt_version REGEX "
 string(REGEX MATCH "[0-9]+" tensorrt_version_major ${tensorrt_version})
 
 # Check TensorRT version and set library accordingly
-if (tensorrt_version_major EQUAL 10)
-    set(TENSORRT_LIBS nvinfer_10 nvinfer_plugin_10 nvonnxparser_10)
+if (WIN32)
+    if (tensorrt_version_major EQUAL 10)
+        set(TENSORRT_LIBS nvinfer_10 nvinfer_plugin_10 nvonnxparser_10)
+    else()
+        set(TENSORRT_LIBS nvinfer nvinfer_plugin nvparsers nvonnxparser)
+    endif()
 else()
-    set(TENSORRT_LIBS nvinfer nvinfer_plugin nvparsers nvonnxparser)
+    if (tensorrt_version_major EQUAL 10)
+        set(TENSORRT_LIBS nvinfer nvinfer_plugin nvonnxparser)
+    else()
+        set(TENSORRT_LIBS nvinfer nvinfer_plugin nvparsers nvonnxparser)
+    endif()
 endif()
 
 # Add executable
