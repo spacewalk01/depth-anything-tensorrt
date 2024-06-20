@@ -3,6 +3,10 @@
 
 #define isFP16 true
 
+
+
+
+
 using namespace nvinfer1;
 
 /**
@@ -28,6 +32,7 @@ DepthAnything::DepthAnything(std::string model_path, nvinfer1::ILogger& logger)
         runtime = nvinfer1::createInferRuntime(logger);
         engine = runtime->deserializeCudaEngine(engineData.get(), modelSize);
         context = engine->createExecutionContext();
+
     }
     // Build an engine from an onnx model
     else
@@ -36,10 +41,18 @@ DepthAnything::DepthAnything(std::string model_path, nvinfer1::ILogger& logger)
         saveEngine(model_path);
     }
 
+    
+
+#if NV_TENSORRT_MAJOR < 10
     // Define input dimensions
     auto input_dims = engine->getBindingDimensions(0);
     input_h = input_dims.d[2];
     input_w = input_dims.d[3];
+#else
+    auto input_dims = engine->getTensorShape(engine->getIOTensorName(0));
+    input_h = input_dims.d[2];
+    input_w = input_dims.d[3];
+#endif
 
     // create CUDA stream
     cudaStreamCreate(&stream);
@@ -97,8 +110,13 @@ cv::Mat DepthAnything::predict(cv::Mat& image)
     std::vector<float> input = preprocess(clone_image);
     cudaMemcpyAsync(buffer[0], input.data(), 3 * input_h * input_w * sizeof(float), cudaMemcpyHostToDevice, stream);
 
-    // Inference depth model
+    // Inference using depth estimation model
+#if NV_TENSORRT_MAJOR < 10
     context->enqueueV2(buffer, stream, nullptr);
+#else
+    context->executeV2(buffer);
+#endif
+
     cudaStreamSynchronize(stream);
 
     // Postprocessing
@@ -145,7 +163,9 @@ void DepthAnything::build(std::string onnxPath, nvinfer1::ILogger& logger)
     IHostMemory* plan{ builder->buildSerializedNetwork(*network, *config) };
 
     runtime = createInferRuntime(logger);
-    engine = runtime->deserializeCudaEngine(plan->data(), plan->size(), nullptr);
+
+    engine = runtime->deserializeCudaEngine(plan->data(), plan->size());
+
     context = engine->createExecutionContext();
 
     delete network;
