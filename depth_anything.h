@@ -27,6 +27,7 @@ private:
 	nvinfer1::IRuntime* runtime;
 	nvinfer1::ICudaEngine* engine;
 	nvinfer1::IExecutionContext* context;
+	nvinfer1::INetworkDefinition* network;
 
 	void* buffer[2];
 	float* depth_data;
