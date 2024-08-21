@@ -35,7 +35,6 @@ bool IsPathExist(const std::string& path) {
 }
 bool IsFile(const std::string& path) {
     if (!IsPathExist(path)) {
-        printf("%s:%d %s not exist\n", __FILE__, __LINE__, path.c_str());
         return false;
     }
 
