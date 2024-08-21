@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <tuple>
+#include <cmath>
+#include <unordered_map>
 #include <NvInfer.h>
 #include <opencv2/opencv.hpp>
 #include "utils.h"
@@ -53,8 +55,7 @@ bool createFolder(const std::string& folderPath) {
         if (error == ERROR_ALREADY_EXISTS) {
             std::cout << "Folder already exists!" << std::endl;
             return true; // Folder already exists
-        }
-        else {
+        } else {
             std::cerr << "Failed to create folder! Error code: " << error << std::endl;
             return false; // Failed to create folder
         }
@@ -64,8 +65,7 @@ bool createFolder(const std::string& folderPath) {
         if (errno == EEXIST) {
             std::cout << "Folder already exists!" << std::endl;
             return true; // Folder already exists
-        }
-        else {
+        } else {
             std::cerr << "Failed to create folder! Error code: " << errno << std::endl;
             return false; // Failed to create folder
         }
@@ -78,126 +78,290 @@ bool createFolder(const std::string& folderPath) {
 /**
  * @brief Setting up Tensorrt logger
 */
-class Logger : public nvinfer1::ILogger
-{
-    void log(Severity severity, const char* msg) noexcept override
-    {
+class Logger : public nvinfer1::ILogger {
+    void log(Severity severity, const char* msg) noexcept override {
         // Only output logs with severity greater than warning
         if (severity <= Severity::kWARNING)
             std::cout << msg << std::endl;
     }
 }logger;
 
-int main(int argc, char** argv)
-{
-    const std::string engine_file_path{ argv[1] };
-    const std::string path{ argv[2] };
-    std::vector<std::string> imagePathList;
-    bool                     isVideo{ false };
-    assert(argc == 3);
+int main(int argc, char** argv) {
+    bool model_loaded = false;
 
-    if (IsFile(path)) {
-        std::string suffix = path.substr(path.find_last_of('.') + 1);
-        if (suffix == "jpg" || suffix == "jpeg" || suffix == "png")
-        {
-            imagePathList.push_back(path);
-        }
-        else if (suffix == "mp4" || suffix == "avi" || suffix == "m4v" || suffix == "mpeg" || suffix == "mov" || suffix == "mkv")
-        {
-            isVideo = true;
-        }
-        else {
-            printf("suffix %s is wrong !!!\n", suffix.c_str());
-            std::abort();
-        }
-    }
-    else if (IsPathExist(path))
-    {
-        cv::glob(path + "/*.jpg", imagePathList);
-    }
-    // Assume it's a folder, add logic to handle folders
-    // init model
-    cout << "Loading model from " << engine_file_path << "..." << endl;
-    DepthAnything depth_model(engine_file_path, logger);
-    cout << "The model has been successfully loaded!" << endl;
+    // all valid video & image extensions
+    vector<string> video_extensions = {"avi", "mp4", "m4v", "mpeg", "mov", "mkv"};
+    vector<string> image_extensions = {"jpeg", "jpg", "png"};
 
-    if (isVideo) {
-        //path to video
-        string VideoPath = path;
-        // open cap
-        cv::VideoCapture cap(VideoPath);
-
-        int width = cap.get(cv::CAP_PROP_FRAME_WIDTH);
-        int height = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
-
-        // Create a VideoWriter object to save the processed video
-        cv::VideoWriter output_video("output_video.avi", cv::VideoWriter::fourcc('M', 'J', 'P', 'G'), 30, cv::Size(width, height));
-        while (1)
-        {
-            cv::Mat frame;
-            cv::Mat show_frame;
-            cap >> frame;
-
-            if (frame.empty())
-                break;
-            frame.copyTo(show_frame);
-            cv::Mat new_frame;
-            frame.copyTo(new_frame);
-            auto start = std::chrono::system_clock::now();
-            cv::Mat result_d = depth_model.predict(frame);
-            auto end = chrono::system_clock::now();
-            cout << "Time of per frame: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << "ms" << endl;
-            cv::Mat result;
-            cv::hconcat(show_frame, result_d, result);
-            cv::resize(result, result, cv::Size(1080, 480));
-            imshow("depth_result", result);
-            output_video.write(result_d);
-            cv::waitKey(1);
-        }
-
-        // Release resources
-        cv::destroyAllWindows();
-        cap.release();
-        output_video.release();
-    }
-    else {
-        // path to folder saves images
-        string imageFolderPath_out = "results/";
-        createFolder(imageFolderPath_out);
-        for (const auto& imagePath : imagePathList)
-        {
-            // open image
-            cv::Mat frame = cv::imread(imagePath);
-            if (frame.empty())
-            {
-                cerr << "Error reading image: " << imagePath << endl;
-                continue;
+    // organizing options & arguements into map
+    unordered_map<string, string> options;
+    string previous_option = "";
+    string current_arguement = "";
+    DepthAnything depth_model;
+    int cutoff = 0;
+    for (int i = 0; i < argc; i++) {
+        cutoff = 0;
+        current_arguement = argv[i];
+        if (current_arguement[0] == '-') {
+            if (current_arguement[1] == '-') {
+                cutoff = 2;
+            } else {
+                cutoff = 1;
             }
-            cv::Mat show_frame;
-            frame.copyTo(show_frame);
-
-            auto start = chrono::system_clock::now();
-            cv::Mat result_d = depth_model.predict(frame);
-            auto end = chrono::system_clock::now();
-            cout << "Time of per frame: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << "ms" << endl;
-            cv::Mat result;
-            cv::hconcat(show_frame, result_d, result);
-            cv::resize(result, result, cv::Size(1080, 480));
-            imshow("depth_result", result);
-            cv::waitKey(1);
-
-            std::istringstream iss(imagePath);
-            std::string token;
-            while (std::getline(iss, token, '/'))
-            {
-            }
-            token = token.substr(token.find_last_of("/\\") + 1);
-
-            std::cout << "Path : " << imageFolderPath_out + token << std::endl;
-            cv::imwrite(imageFolderPath_out + token, result_d);
+            previous_option = current_arguement.substr(cutoff);
+            options[previous_option] = "1";
+        } else if (!previous_option.empty()) {
+            options[previous_option] = current_arguement.substr(cutoff);
+            previous_option = "";
         }
     }
 
-    cout << "finished" << endl;
+    // load selected model
+    if (!options["model"].empty()) {
+        string model_path = options["model"];
+
+        if (!IsFile(model_path)) {
+            cout << "Model not found!" << endl;
+            abort();
+        }
+        cout << "Loading model: \"" << model_path << "\"" <<  endl;
+
+        string alternate_path = model_path.substr(0, model_path.length() - 5) + ".engine";
+        if (model_path.substr(model_path.find_last_of('.') + 1) == "onnx" && IsFile(alternate_path)) {
+            string confirm_engine = "";
+            cout << "\"" << alternate_path << "\" found, Override existing .engine file? (Y/N): ";
+            cin >> confirm_engine;
+            if (confirm_engine != "Y" && confirm_engine != "y"){
+                model_path = alternate_path;
+            }
+        }
+        depth_model.init(model_path, logger);
+        cout << "Model successfully loaded." << endl << endl;
+        model_loaded = true;
+    }
+
+    if (!options["input"].empty()) {
+        string input = options["input"];
+        std::vector<std::string> imagePathList;
+        std::vector<std::string> videoPathList;
+        string suffix = input.substr(input.find_last_of('.') + 1);
+        bool suffix_found = false;
+        // organize images and videos in path into seperate lists
+        if (IsFile(input)) {
+            for (string& proper_suffix : image_extensions) {
+                if (suffix == proper_suffix) {
+                    imagePathList.push_back(input);
+                    suffix_found = true;
+                    break;
+                }
+            }
+            if (!suffix_found) {
+                for (string& proper_suffix : video_extensions) {
+                    if (suffix == proper_suffix) {
+                        videoPathList.push_back(input);
+                        suffix_found = true;
+                        break;
+                    }
+                }
+            }
+            if (!suffix_found) {
+                printf("Incorrect suffix %s!\n", suffix.c_str());
+                std::abort();
+            }
+        } else if (IsPathExist(input)) {
+            vector<string> current_extension_found;
+            for (string& current_extension : image_extensions) {
+                cv::glob(input + "/*." + current_extension, current_extension_found);
+                imagePathList.insert(
+                    imagePathList.end(),
+                    current_extension_found.begin(),
+                    current_extension_found.end()
+                );
+                current_extension_found.clear();
+            }
+            for (string& current_extension : video_extensions) {
+                cv::glob(input + "/*." + current_extension, current_extension_found);
+                videoPathList.insert(
+                    videoPathList.end(),
+                    current_extension_found.begin(),
+                    current_extension_found.end()
+                );
+                current_extension_found.clear();
+            }
+        } else {
+            cout << "Input location invalid!" << endl;
+        }
+
+
+        if (model_loaded) {
+            string base_filename;
+            string filename;
+            string prefix = "depth_";
+            string output;
+            string generated_name;
+            string full_output_location;
+            string current_suffix;
+            if (!options["prefix"].empty()) {
+                prefix = options["prefix"];
+            }
+            //iterate through videoPathList and render depthmaps.
+            for (const auto& videoPath : videoPathList) {
+                base_filename = videoPath.substr(videoPath.find_last_of("/\\") + 1);
+                filename = base_filename.substr(0, base_filename.find_last_of('.'));
+                generated_name = prefix + filename;
+
+                if (!options["output"].empty()) {
+                    output = options["output"];
+                    if (output.back() != '\\') {
+                        output += "\\";
+                    }
+                    if (!IsPathExist(output)) {
+                        cout << "Output location invalid!" << endl;
+                        abort();
+                    }
+                }
+                full_output_location = output + generated_name;
+
+                // open cap
+                cv::VideoCapture cap(videoPath);
+
+                int width = cap.get(cv::CAP_PROP_FRAME_WIDTH);
+                int height = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
+                double fps;
+                double frame_total = cap.get(cv::CAP_PROP_FRAME_COUNT);
+                int frame_num = 0;
+                double previous_tpf = 0;
+                double estimate = 0;
+                double tpf = 0;
+                int estimate_rounded = 0;
+                int progress = 0;
+
+                if (!options["fps"].empty()) {
+                    try {
+                        fps = stod(options["fps"]);
+                    } catch (const invalid_argument&) {
+                        cerr << "Invalid fps value!" << endl;
+                        abort();
+                    }
+                } else {
+                    fps = cap.get(cv::CAP_PROP_FPS);
+                }
+
+                // Create a VideoWriter object to save the processed video
+                full_output_location += ".avi";
+
+                cout << full_output_location << ":" << endl;
+                cv::VideoWriter output_video(full_output_location, cv::VideoWriter::fourcc('M', 'J', 'P', 'G'), fps, cv::Size(width, height));
+                while (1) {
+                    frame_num ++;
+                    cv::Mat frame;
+                    cap >> frame;
+
+                    if (frame.empty())
+                        break;
+                    auto start = std::chrono::system_clock::now();
+                    cv::Mat result_d = depth_model.predict(frame);
+                    auto end = chrono::system_clock::now();
+                    tpf = chrono::duration_cast<std::chrono::duration<double, std::milli>>(end - start).count();
+
+                    if (previous_tpf == 0) {
+                        estimate = (frame_total - frame_num) * (tpf / 1000.0);
+                    } else if (frame_num <= 10) {
+                        estimate = (frame_total - frame_num) * (((tpf * (frame_num - 1) + previous_tpf) / frame_num) / 1000.0);
+                    } else {
+                        estimate = (frame_total - frame_num) * (((tpf * (9) + previous_tpf) / 10) / 1000.0);
+                    }
+                    previous_tpf = tpf;
+                    progress = floor((frame_num / frame_total) * 100);
+                    cout << "frame#:" << setw(6) << frame_num << " progress:" << setw(3) << progress << "% time per frame:" << setw(9) << tpf << "ms fps:" << setw(4) << floor(100 / (tpf / 1000)) / 100.0 << " eta:";
+
+                    if (estimate >= 60) {
+                        estimate_rounded = estimate;
+                        cout << setw(3) << floor(estimate / 60) << ":" << setw(2) << estimate_rounded % 60;
+                    } else {
+                        cout << setw(5) << floor(estimate * 100) / 100.0 << "sec";
+                    }
+
+                    cout << " [" << string(floor(progress / 2.5), 'I') << string(40 - floor(progress / 2.5), ' ') << "]";
+
+                    if (options["one-line"].empty()) {
+                        cout << endl;
+                    } else {
+                        cout << setw(20) << "  \r";
+                    }
+                    if (!options["preview"].empty()) {
+                        cv::Mat show_frame;
+                        frame.copyTo(show_frame);
+                        cv::Mat result;
+                        cv::hconcat(show_frame, result_d, result);
+                        cv::resize(result, result, cv::Size(width, height / 2)); //IMPORTANT
+                        imshow("Depth: Before -> After", result);
+                    }
+                    output_video.write(result_d);
+                    cv::waitKey(1);
+                }
+                if (!options["one-line"].empty()) {
+                    cout << endl;
+                }
+                // Release resources
+                cv::destroyAllWindows();
+                cap.release();
+                output_video.release();
+                cout << full_output_location << " finished generating." << endl << endl;
+            }
+            // iterate through imagePathList and render depthmaps.
+            for (const auto& imagePath : imagePathList) {
+                
+                base_filename = imagePath.substr(imagePath.find_last_of("/\\") + 1);
+                filename = base_filename.substr(0, base_filename.find_last_of('.'));
+                generated_name = prefix + filename;
+
+                if (!options["output"].empty()) {
+                    output = options["output"];
+                    if (output.back() != '\\') {
+                        output += "\\";
+                    }
+                    if (!IsPathExist(output)) {
+                        cout << "Output location invalid!" << endl;
+                        abort();
+                    }
+                }
+
+                current_suffix = imagePath.substr(imagePath.find_last_of('.') + 1);
+
+                full_output_location = output + generated_name + "." + current_suffix;
+
+                cout << full_output_location << ":" << endl;
+
+                // open image
+                cv::Mat frame = cv::imread(imagePath);
+                if (frame.empty())
+                {
+                    cerr << "Error reading image: " << imagePath << endl;
+                    continue;
+                }
+                
+
+                auto start = chrono::system_clock::now();
+                cv::Mat result_d = depth_model.predict(frame);
+                auto end = chrono::system_clock::now();
+                double tpf = chrono::duration_cast<std::chrono::duration<double, std::milli>>(end - start).count();
+                cout << "time per frame:" << setw(9) << tpf << "ms fps:" << setw(4) << floor(100 / (tpf / 1000)) / 100.0 << endl;
+                if (!options["preview"].empty()) {
+                    cv::Mat show_frame;
+                    frame.copyTo(show_frame);
+                    cv::Mat result;
+                    cv::hconcat(show_frame, result_d, result);
+                    cv::resize(result, result, cv::Size(1080, 480));
+                    imshow("depth_result", result);
+                    cv::waitKey(1);
+                }
+                
+                cv::imwrite(full_output_location, result_d);
+
+                cout << full_output_location << " finished generating." << endl << endl;
+            }
+        }
+    }
     return 0;
 }
