@@ -128,10 +128,14 @@ int main(int argc, char** argv) {
 
         string alternate_path = model_path.substr(0, model_path.length() - 5) + ".engine";
         if (model_path.substr(model_path.find_last_of('.') + 1) == "onnx" && IsFile(alternate_path)) {
-            string confirm_engine = "";
-            cout << "\"" << alternate_path << "\" found, Override existing .engine file? (Y/N): ";
-            cin >> confirm_engine;
-            if (confirm_engine != "Y" && confirm_engine != "y"){
+            if (options["find-engine"].empty()) {
+                string confirm_engine = "";
+                cout << "\"" << alternate_path << "\" found, Override existing .engine file? (Y/N): ";
+                cin >> confirm_engine;
+                if (confirm_engine != "Y" && confirm_engine != "y"){
+                    model_path = alternate_path;
+                }
+            } else {
                 model_path = alternate_path;
             }
         }

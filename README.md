@@ -77,6 +77,8 @@ depth-anything-tensorrt.exe -model depth_anything_vitb14.engine -input test.mp4 
 depth-anything-tensorrt.exe -preview -model depth_anything_vitb14.engine -input test.mp4
 # modify fps of footage (does not interpolate, will speed up or slow down footage if original video file has a different fps value)
 depth-anything-tensorrt.exe -model depth_anything_vitb14.engine -input test.mp4 -fps 60
+# use an existing engine file if found
+depth-anything-tensorrt.exe -model depth_anything_vitb14.onnx -input test.mp4 -find-engine
 ```
 
 <p align="center">
