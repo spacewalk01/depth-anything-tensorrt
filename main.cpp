@@ -287,7 +287,7 @@ int main(int argc, char** argv) {
                     if (options["one-line"].empty()) {
                         cout << endl;
                     } else {
-                        cout << setw(20) << "  \r";
+                        cout << "\t\r" << flush;
                     }
                     if (!options["preview"].empty()) {
                         cv::Mat show_frame;
