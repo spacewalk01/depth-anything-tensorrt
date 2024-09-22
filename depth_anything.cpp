@@ -10,10 +10,7 @@ using namespace nvinfer1;
  * @param model_path DepthAnything engine file path
  * @param logger Nvinfer ILogger
 */
-DepthAnything::DepthAnything()
-{}
-
-void DepthAnything::init(std::string model_path, nvinfer1::ILogger& logger)
+DepthAnything::DepthAnything(std::string model_path, nvinfer1::ILogger& logger)
 {
     // Deserialize an engine
     if (model_path.find(".onnx") == std::string::npos)
