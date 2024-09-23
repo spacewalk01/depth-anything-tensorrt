@@ -143,7 +143,7 @@ Perform the following steps to create an onnx model:
    pip install -r requirements.txt
    ```
 2. Download the pretrained models from the [readme](https://github.com/DepthAnything/Depth-Anything-V2.git) and put them in checkpoints folder:
-3. Copy dpt.py in depth_anything_v2 from this repo to `<depth_anything_installpath>/depth_anything_v2` folder. And, Copy export_v2 in depth_anything_v2 from this repo to `<depth_anything_installpath>` folder.
+3. Copy [dpt.py](https://github.com/spacewalk01/depth-anything-tensorrt/blob/main/depth_anything_v2/dpt.py) in depth_anything_v2 from this repo to `<depth_anything_installpath>/depth_anything_v2` folder. And, Copy [export_v2.py](https://github.com/spacewalk01/depth-anything-tensorrt/blob/main/depth_anything_v2/export_v2.py) in depth_anything_v2 from this repo to `<depth_anything_installpath>` folder.
 4. Run the following to export the model:
     ``` shell
     conda create -n depth-anything python=3.8
