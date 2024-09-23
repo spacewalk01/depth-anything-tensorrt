@@ -1,7 +1,6 @@
 import argparse
 import cv2
 import glob
-import matplotlib as plt
 import numpy as np
 import os
 import torch
