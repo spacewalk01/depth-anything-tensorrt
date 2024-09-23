@@ -119,9 +119,9 @@ Perform the following steps to create an onnx model:
    cd Depth-Anything
    pip install -r requirements.txt
    ```
-
-2. Copy and paste all files in depth-anything_v1 to `<depth_anything_installpath>/depth_anything` folder. Note that I've only removed a squeeze operation at the end of model's forward function in `dpt.py` to avoid conflicts with TensorRT.
-3. Export the model to onnx format using [export.py](https://github.com/spacewalk01/depth-anything-tensorrt/blob/main/export.py). You will get an onnx file named `depth_anything_vit{}14.onnx`, such as `depth_anything_vitb14.onnx`. Note that I used torch cpu version for exporting the onnx model as it is not necessary to deploy the model on GPU when exporting.
+  
+2. Copy [dpt.py](https://github.com/spacewalk01/depth-anything-tensorrt/blob/main/depth_anything_v1/dpt.py) in depth_anything_v1 from this repo to `<Depth-Anything-Installpath>/depth_anything` folder. And, Copy [export_v1.py](https://github.com/spacewalk01/depth-anything-tensorrt/blob/main/depth_anything_v1/export_v1.py) in depth_anything_v1 from this repo to `<Depth-Anything-Installpath>` folder.
+3. Export the model to onnx format using [export_v1.py](https://github.com/spacewalk01/depth-anything-tensorrt/blob/main/depth_anything_v1/export_v1.py). You will get an onnx file named `depth_anything_vit{}14.onnx`, such as `depth_anything_vitb14.onnx`. Note that I used torch cpu version for exporting the onnx model as it is not necessary to deploy the model on GPU when exporting.
 
     
     ``` shell
@@ -151,6 +151,7 @@ Perform the following steps to create an onnx model:
     pip install torch torchvision
     pip install opencv-python
     pip install onnx
+    cd Depth-Anything-V2
     python export_v2.py --encoder vitb --input-size 518
     ```
 
