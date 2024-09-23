@@ -130,6 +130,7 @@ Perform the following steps to create an onnx model:
     pip install torch torchvision
     pip install opencv-python
     pip install onnx
+    cd Depth-Anything
     python export_v1.py --encoder vitb --load_from depth_anything_vitb14.pth --image_shape 3 518 518
     ```
 
