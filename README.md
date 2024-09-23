@@ -1,6 +1,6 @@
 <div align="left">
 
-Depth Anything TensorRT
+Depth Anything TensorRT CLI
 ===========================
 
 [![python](https://img.shields.io/badge/python-3.10.12-green)](https://www.python.org/downloads/release/python-31012/)
@@ -24,6 +24,7 @@ Depth estimation is the task of measuring the distance of each pixel relative to
 
 
 ## News
+* **2024-08-20:** Added CLI (xa1on)
 * **2024-06-20:** Added support for TensorRT 10.
 * **2024-06-17:** [Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2) has been integrated.
 * **2024-01-23:** The Depth Anything [TensorRT](https://github.com/spacewalk01/depth-anything-tensorrt) version has been created.
@@ -45,24 +46,44 @@ The inference time includes the pre-preprocessing and post-processing stages:
 
 #### C++
 
-- **Usage 1**: Create an engine from an onnx model and save it:
+- **Step 1**: Create an engine from an onnx model and save it:
 ``` shell
-depth-anything-tensorrt.exe <onnx model> <input image or video>
+depth-anything-tensorrt.exe -model <onnx model>
 ```
-- **Usage 2**: Deserialize an engine. Once you've built your engine, the next time you run it, simply use your engine file:
+- **Step 2**: Deserialize an engine. Once you've built your engine, the next time you run it, simply use your engine file:
 ``` shell
-depth-anything-tensorrt.exe <engine> <input image or video>
+depth-anything-tensorrt.exe -model <engine file> -input <input image or video>
+```
+- Alternatively, you can skip immediately to running the model with just an onnx file, however, it will still generate a engine file.
+``` shell
+depth-anything-tensorrt.exe -model <onnx model> -input <input image or video>
 ```
 
 Example:
 ``` shell
 # infer image
-depth-anything-tensorrt.exe depth_anything_vitb14.engine test.jpg
-# infer folder(images)
-depth-anything-tensorrt.exe depth_anything_vitb14.engine data
+depth-anything-tensorrt.exe -model depth_anything_vitb14.engine -input test.jpg
+# infer folder(images/videos)
+depth-anything-tensorrt.exe -model depth_anything_vitb14.engine -input data # folder containing videos/images
 # infer video
-depth-anything-tensorrt.exe depth_anything_vitb14.engine test.mp4 # the video path
+depth-anything-tensorrt.exe -model depth_anything_vitb14.engine -input test.mp4 # the video path
+# specify output location
+depth-anything-tensorrt.exe -model depth_anything_vitb14.engine -input test.mp4 -output result # rendered depth maps will go into the "results" directory
+# display progress in one line rather than multiple
+depth-anything-tensorrt.exe -model depth_anything_vitb14.engine -input test.mp4 -one-line
+# modify prefix of generated files (default: "depth_")
+depth-anything-tensorrt.exe -model depth_anything_vitb14.engine -input test.mp4 -prefix "depthify_" # rendered depth map will have the name "depthify_test.mp4"
+# show preview including before and after (may slow down performance)
+depth-anything-tensorrt.exe -preview -model depth_anything_vitb14.engine -input test.mp4
+# modify fps of footage (does not interpolate, will speed up or slow down footage if original video file has a different fps value)
+depth-anything-tensorrt.exe -model depth_anything_vitb14.engine -input test.mp4 -fps 60
+# use an existing engine file if found
+depth-anything-tensorrt.exe -model depth_anything_vitb14.onnx -input test.mp4 -find-engine
 ```
+
+<p align="center">
+  <img src="assets/usage-example.png"/>
+</p>
 
 #### Python
 
